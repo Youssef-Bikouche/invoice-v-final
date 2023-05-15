@@ -1,0 +1,219 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+*
+* Testing
+*
+**/
+.login-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-container .Home {
+  position: absolute;
+  top: 15px;
+  left: none;
+  right: 15px;
+  bottom: none;
+  width: 3.5%;
+  height: 3.5%;
+  color: #FC7D57;
+  cursor: pointer;
+}
+.login-container .left-side {
+  width: 45%;
+  height: 100%;
+  border: 2px solid green;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: none;
+  bottom: none;
+  background-color: #6060eb;
+}
+@media (max-width: 920px) {
+  .login-container .left-side {
+    display: none;
+  }
+}
+.login-container .left-side video {
+  width: 75%;
+  height: 75%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: none;
+  bottom: none;
+  transform: translate(-50%, -50%);
+  z-index: 22;
+}
+.login-container .right-side {
+  width: 55%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FBFAFB;
+  position: relative;
+}
+@media (max-width: 920px) {
+  .login-container .right-side {
+    width: 100%;
+    height: 100%;
+  }
+}
+.login-container .right-side .form {
+  padding-top: 10%;
+  border: 2px solid none;
+  border-radius: 12px;
+  width: 50%;
+  height: 65%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: none;
+  bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: none;
+  flex-direction: column;
+  transform: translate(-50%, -50%);
+  animation: rotate 15s infinite linear;
+}
+@media (max-width: 920px) {
+  .login-container .right-side .form {
+    width: 90%;
+    height: 50%;
+  }
+}
+.login-container .right-side .form h1 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: x-large;
+  font-weight: 525px;
+  font-style: italic;
+}
+@media (max-width: 920px) {
+  .login-container .right-side .form h1 {
+    margin-top: 6%;
+  }
+}
+.login-container .right-side .form img {
+  width: 25%;
+  height: 22%;
+  position: absolute;
+  top: -11%;
+  left: 37.5%;
+  right: none;
+  bottom: none;
+  border: 1px solid rgb(74, 74, 74);
+  border-radius: 50%;
+}
+.login-container .right-side .form label {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: large;
+  font-weight: 500;
+  font-style: normal;
+  margin: 4%;
+}
+@media (max-width: 920px) {
+  .login-container .right-side .form label {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: larger;
+    font-weight: 500;
+    font-style: normal;
+  }
+}
+.login-container .right-side .form input {
+  width: 80%;
+  height: 11%;
+  border: 1px solid gray;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 2%;
+}
+.login-container .right-side .form a {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: medium;
+  font-weight: 500;
+  font-style: italic;
+  color: #6060eb;
+  margin: 4%;
+}
+.login-container .right-side .form button {
+  width: 32%;
+  height: 9%;
+  color: white;
+  background-color: #fdb7a2;
+  border: 0px solid none;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  margin: 2%;
+}
+.login-container .right-side .form button:hover {
+  background-color: #FC7D57;
+}
+.login-container .right-side .form .errorLOGIN {
+  margin: 1% 0%;
+  width: 90%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: large;
+  font-weight: 520;
+  font-style: normal;
+  color: red;
+}
+.login-container .right-side .form .inputRED {
+  border: 2px solid red;
+  border-radius: 12px;
+}
+
+@keyframes rotate {
+  0% {
+    box-shadow: 4px 0px 15px #6060eb;
+  }
+  10% {
+    box-shadow: 0px -4px 15px #6565ec;
+  }
+  20% {
+    box-shadow: -4px 0px 0px #6969ec;
+  }
+  30% {
+    box-shadow: 0px 4px 15px #6e6eed;
+  }
+  40% {
+    box-shadow: 4px 0px 15px #7272ed;
+  }
+  50% {
+    box-shadow: 0px -4px 0px #7272ed;
+  }
+  60% {
+    box-shadow: -4px 0px 15px #7777ee;
+  }
+  70% {
+    box-shadow: 0px 4px 15px #7b7bee;
+  }
+  80% {
+    box-shadow: 4px 0px 15px #8080ef;
+  }
+  90% {
+    box-shadow: 0px -4px 15px #8484f0;
+  }
+  100% {
+    box-shadow: -4px 0px 15px #8989f0;
+  }
+}/*# sourceMappingURL=Login.css.map */

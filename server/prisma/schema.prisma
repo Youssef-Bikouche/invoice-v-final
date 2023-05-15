@@ -16,6 +16,7 @@ model company {
   email          String           @unique
   address        String
   phone          String           @unique
+  password       String           
   customer       customer[]
   product        product[]
   invoiceHISTORY invoiceHISTORY[]
