@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import '../styles/InvoiceManu.css';
+import "../styles/InvoiceManu.css";
 import axios from 'axios';
 import easyinvoice from 'easyinvoice';
 
@@ -148,7 +148,7 @@ setCashierEmail(e.target.value)
   
        const downloadPDF = async ()=>{
               
-        await axios.post('http://localhost:4000/InvoiceManu/downloadpdf',
+        await axios.post('http://localhost:5000/InvoiceManu/downloadpdf',
         {items : rows ,cashier: {name: cashierName , address: cashierAddress , email: cashierEmail },   
         client: {name: clientName , address: clientAddress , email: clientEmail } 
         ,total :inputTOTALValue , numberOfInvoice: numberOfInvoice , taxe: inputTaxeValue , discount: inputDiscountValue})

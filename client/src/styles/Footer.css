@@ -1,0 +1,63 @@
+/**
+*
+* Testing
+*
+**/
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Ubuntu:wght@300;400;500;700&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.footer {
+  position: relative;
+  background-color: rgb(240, 235, 235);
+  top: 150px;
+  text-align: center;
+  font-family: ubuntu;
+}
+
+.footer .differences {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: justify;
+}
+@media (max-width: 500px) {
+  .footer .differences {
+    display: block;
+    text-align: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .foot {
+    margin-bottom: 20px;
+  }
+}
+
+.footer #cby {
+  margin-top: 20px;
+  padding-bottom: 5px;
+}
+
+.footer .follow img {
+  width: 30px;
+  margin: 2px;
+  transition: 0.5s;
+}
+
+.footer .follow img:hover {
+  transform: scale(1.1);
+}
+
+.footer p {
+  transition: 0.5s;
+}
+
+.footer p:hover {
+  transform: scale(1.1);
+  color: #6060eb;
+  cursor: pointer;
+}/*# sourceMappingURL=Footer.css.map */

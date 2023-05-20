@@ -3,13 +3,14 @@
 @import "./utilities/colors";
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Ubuntu:wght@300;400;500;700&display=swap');
 
-.all{
+.Navbar{
     z-index: 10;
     position: fixed;
    // background-color: #6060eb3f;
-     @include size(100%,80px);
+     @include size(100%,11%);
      display:flex;
      justify-content: space-around;
+     align-items: center;
      border: white;
      @include media("<=500px"){
         justify-content: space-between;
@@ -25,9 +26,8 @@
 }
 
 .nav{
-   
     @include size(400px,50px);
-    @include  position(relative,10px ,0,none,none);
+    @include  position(relative,0 ,0,none,none);
     @include  flex(start);
     @include media("<=665px"){
         top: 40px;
@@ -88,7 +88,7 @@
   }
  .btnSignUp{
     @include size(100px,40px);
-    @include  position(relative,10px ,0,none,none);
+    @include  position(relative,0 ,0,none,none);
     margin-right:10px;
     border-radius:5px;
     background-color: white;
@@ -109,7 +109,7 @@
     text-decoration: none;
     @include size(100px,40px);
     position: relative;
-    top:20px;
+    top:15px;
     right:10px;
     padding: 5px;
     @include font('Ubuntu');

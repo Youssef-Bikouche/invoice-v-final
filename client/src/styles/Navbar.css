@@ -1,0 +1,198 @@
+/**
+*
+* Testing
+*
+**/
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Ubuntu:wght@300;400;500;700&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.Navbar {
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  height: 11%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: white;
+}
+@media (max-width: 500px) {
+  .Navbar {
+    justify-content: space-between;
+  }
+}
+
+#logoImg {
+  width: 150px;
+  height: 40px;
+  position: relative;
+  top: 10px;
+  left: 10px;
+  right: none;
+  bottom: none;
+}
+@media (max-width: 665px) {
+  #logoImg {
+    width: 100px;
+    height: 30px;
+  }
+}
+
+.nav {
+  width: 400px;
+  height: 50px;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: none;
+  bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+@media (max-width: 665px) {
+  .nav {
+    top: 40px;
+    width: 800px;
+  }
+}
+@media (max-width: 500px) {
+  .nav {
+    display: none;
+  }
+}
+@media (max-width: 500px) {
+  .nav {
+    display: none;
+  }
+}
+
+.nav ul {
+  display: flex;
+  list-style: none;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.nav ul li .same {
+  padding: 15px;
+  font-family: "Ubuntu";
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s;
+  position: relative;
+}
+@media (max-width: 665px) {
+  .nav ul li .same {
+    padding: 5px;
+  }
+}
+
+.nav ul li .same:hover {
+  color: #fc7d57;
+  text-decoration: none;
+}
+
+.nav ul li .same::after {
+  content: "";
+  position: absolute;
+  width: 75%;
+  height: 2px;
+  bottom: 5px;
+  left: 10px;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.2s ease-out;
+  background-color: white;
+}
+@media (max-width: 700px) {
+  .nav ul li .same::after {
+    position: relative;
+  }
+}
+
+.nav ul li .same:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.sign {
+  display: flex;
+}
+
+.btnSignUp {
+  width: 100px;
+  height: 40px;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: none;
+  bottom: none;
+  margin-right: 10px;
+  border-radius: 5px;
+  background-color: white;
+  border: none;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: "Ubuntu";
+  font-weight: 500;
+  font-style: normal;
+  cursor: pointer;
+  transition: 0.3s;
+}
+@media (max-width: 630px) {
+  .btnSignUp {
+    width: 70px;
+    height: 30px;
+  }
+}
+
+.btnSignUp:hover {
+  border: 2px solid #fc7d57;
+  color: #fc7d57;
+}
+
+.sign .login {
+  text-decoration: none;
+  width: 100px;
+  height: 40px;
+  position: relative;
+  top: 15px;
+  right: 10px;
+  padding: 5px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: "Ubuntu";
+  font-weight: 500;
+  font-style: normal;
+  list-style: none;
+  color: white;
+  transition: 0.3s;
+}
+@media (max-width: 630px) {
+  .sign .login {
+    top: 15px;
+  }
+}
+
+.sign .login:hover {
+  color: #fc7d57;
+}
+
+.sign li {
+  list-style: none;
+}
+
+.wave, .wave2 {
+  position: absolute;
+  top: none;
+  left: 0;
+  right: none;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  fill: #ffffff;
+}/*# sourceMappingURL=Navbar.css.map */
