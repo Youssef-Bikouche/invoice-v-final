@@ -1,0 +1,136 @@
+@import "./utilities/breakpoints";
+@import "./utilities/mixins";
+@import "./utilities/colors";
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Ubuntu:wght@300;400;500;700&display=swap');
+
+.all{
+    z-index: 10;
+    position: fixed;
+   // background-color: #6060eb3f;
+     @include size(100%,80px);
+     display:flex;
+     justify-content: space-around;
+     border: white;
+     @include media("<=500px"){
+        justify-content: space-between;
+    }
+     
+}
+#logoImg{
+    @include size(150px,40px);
+    @include  position(relative,10px ,10px,none,none);
+    @include media("<=665px"){
+        @include size(100px,30px);
+    }
+}
+
+.nav{
+   
+    @include size(400px,50px);
+    @include  position(relative,10px ,0,none,none);
+    @include  flex(start);
+    @include media("<=665px"){
+        top: 40px;
+        width: 800px;
+    }
+    @include media("<=500px"){
+        display:none;
+    }
+    @include media("<=500px"){
+        display:none;
+    }
+    
+}
+.nav ul {
+    display: flex;
+    list-style:none;
+    width:100%;
+    justify-content: space-between;
+
+}
+.nav ul li .same{
+    padding: 15px;
+    font-family: 'Ubuntu';
+    font-weight: 500;
+    cursor: pointer;
+    color:white;
+    transition: 0.3s;
+    position: relative;
+    @include media("<=665px"){
+        padding: 5px;
+    }
+}
+.nav ul li .same:hover{
+   color:$secondary;
+   text-decoration: none;
+}
+.nav ul li .same::after{
+    content: "";
+    position: absolute;
+    width:75%;
+    height: 2px;
+    bottom: 5px;
+    left: 10px;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.2s ease-out;
+    background-color: white; 
+    @include media("<=700px"){
+        position: relative;
+    }
+}
+.nav ul li .same:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  .sign{
+    display: flex;
+  }
+ .btnSignUp{
+    @include size(100px,40px);
+    @include  position(relative,10px ,0,none,none);
+    margin-right:10px;
+    border-radius:5px;
+    background-color: white;
+    border: none;
+    @include font('Ubuntu');
+    cursor: pointer;
+    transition: 0.3s;
+    @include media("<=630px"){
+       width: 70px;
+       height: 30px;
+    }
+}
+.btnSignUp:hover{
+    border:2px solid $secondary ;
+    color:$secondary;
+}
+.sign .login{
+    text-decoration: none;
+    @include size(100px,40px);
+    position: relative;
+    top:20px;
+    right:10px;
+    padding: 5px;
+    @include font('Ubuntu');
+    list-style:none;
+    color: white;
+    transition: 0.3s;
+    @include media("<=630px"){
+        top:15px;
+     }
+}
+.sign .login:hover{
+  color:$secondary
+}
+.sign li{
+    list-style:none;
+}
+.wave,.wave2 {
+    @include  position(absolute,none ,0,none,0);
+    @include size(100%,30px);
+    fill: #ffffff;
+  }
+
+
+   
