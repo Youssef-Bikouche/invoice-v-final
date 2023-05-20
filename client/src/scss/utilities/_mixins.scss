@@ -1,39 +1,38 @@
-*{
- box-sizing: border-box;
- margin: 0;
- padding: 0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@mixin flex($justify: center){
+@mixin flex($justify: center) {
   display: flex;
   align-items: center;
   justify-content: $justify;
 }
-@mixin border($width: 1px, $color: black, $radius: 12px){
+@mixin border($width: 1px, $color: black, $radius: 12px) {
   border: $width solid $color;
   border-radius: $radius;
 }
-@mixin position($position: relative,$t:0,$l:0,$r:none,$b:none){
+@mixin position($position: relative, $t: 0, $l: 0, $r: none, $b: none) {
   position: $position;
   top: $t;
   left: $l;
   right: $r;
   bottom: $b;
 }
-@mixin background($attachement: none){
-   background-repeat: none;
-   background-position: center;
-   background-size: cover;
-   background-attachment: $attachement;
+@mixin background($attachement: none) {
+  background-repeat: none;
+  background-position: center;
+  background-size: cover;
+  background-attachment: $attachement;
 }
-@mixin font($size: large,$weight: 500,$style: normal){
-  font-family: Georgia, 'Times New Roman', Times, serif;
+@mixin font($size: large, $weight: 500, $style: normal) {
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: $size;
   font-weight: $weight;
   font-style: $style;
 }
-@mixin size($width: 100%,$height:100vh){
+@mixin size($width: 100%, $height: 100vh) {
   width: $width;
   height: $height;
- 
 }

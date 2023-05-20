@@ -24,7 +24,7 @@
   bottom: none;
   width: 3.5%;
   height: 3.5%;
-  color: #FC7D57;
+  color: #fc7d57;
   cursor: pointer;
 }
 .login-container .left-side {
@@ -64,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FBFAFB;
+  background-color: #fbfafb;
   position: relative;
 }
 @media (max-width: 920px) {
@@ -162,7 +162,7 @@
   margin: 2%;
 }
 .login-container .right-side .form button:hover {
-  background-color: #FC7D57;
+  background-color: #fc7d57;
 }
 .login-container .right-side .form .errorLOGIN {
   margin: 1% 0%;

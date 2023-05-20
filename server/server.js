@@ -20,7 +20,6 @@ app.get('/Home',(req,res)=>{
 })
 //*********************************************************** */
 app.post('/login',async (req,res)=>{
-  console.log(req.body);
   const company=await prisma.company.findUnique({
     where : {
       name: req.body.username,
@@ -28,7 +27,7 @@ app.post('/login',async (req,res)=>{
   })
   if(company){
     if(company.password === req.body.password){
-      res.json({"message": "found"})
+      res.json({"message": "found","id": company.id})
     }
   }
   else{
@@ -68,6 +67,56 @@ app.post('/addCompany', async (req, res) => {
   }
 });
 
+//*********************************************************** */
+app.post('/getPRODUCTS',async(req,res)=>{
+  try {
+    const products= await prisma.product.findMany({
+      where : {
+        companyId: req.body.id
+      }
+     })
+     res.json({'products': products})
+  } catch (error) {
+    console.log(error)
+  }
+})
+//*********************************************************** */
+app.post('/companyInfo',async(req,res)=>{
+  try {
+    const info= await prisma.company.findUnique({
+      where : {
+        id: req.body.id
+      }
+     })
+     res.json({'info': info})
+  } catch (error) {
+     res.json(error)
+  }
+})
+//*********************************************************** */
+app.post('/getCLIENTS',async(req,res)=>{
+  // const newx=await prisma.customer.create({
+  //   data : {
+  //     fullname: 'yassine rodri',
+  //     email : 'yassine@gmail.com',
+  //     phone :'0607734338',
+  //     address: 'Tanjia gueliz',
+  //     companyId: req.body.id,
+  //   }
+  // })
+  // console.log(newx)
+  try {
+    const clients=await prisma.customer.findMany({
+      where :{
+        companyId : req.body.id,
+      }
+    })
+    res.json({"clients": clients});
+  } catch (error) {
+    console.log(error)
+  }
+})
+//*********************************************************** */
 // app.post('/addCompany',async (req,res)=>{
 //   try {
 //     const name=await prisma.company.findUnique({

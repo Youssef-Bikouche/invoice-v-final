@@ -1,101 +1,106 @@
-@import './utilities/mixins';
-@import './utilities/breakpoints';
-@import './utilities/colors';
+@import "./utilities/mixins";
+@import "./utilities/breakpoints";
+@import "./utilities/colors";
 
-.Register-container{
-  @include size(100%,100vh);
+.Register-container {
+  @include size(100%, 100vh);
   @include flex(center);
-  .Home{
-    @include position(absolute,15px,none,15px,none);
-    @include size(3.5%,3.5%);
+  .Home {
+    @include position(absolute, 15px, none, 15px, none);
+    @include size(3.5%, 3.5%);
     color: $secondary;
     cursor: pointer;
   }
-  .left-side{
-    @include size(45%,100%);
-    @include border(2px,green,0);
+  .left-side {
+    @include size(45%, 100%);
+    @include border(2px, green, 0);
     @include flex();
     @include position(relative);
-    background-color:  $main;
-    @include media("<=custom"){
-        display: none;
+    background-color: $main;
+    @include media("<=custom") {
+      display: none;
     }
-    video{
+    video {
       // @include border(6px ,rgb(251, 6, 6),12px);
-      @include size(75%,75%);
-      @include position(absolute,50%,50%);
-      transform: translate(-50%,-50%);
+      @include size(75%, 75%);
+      @include position(absolute, 50%, 50%);
+      transform: translate(-50%, -50%);
       z-index: 22;
     }
   }
-  .right-side{
-    @include size(55%,100%);
+  .right-side {
+    @include size(55%, 100%);
     @include flex();
     background-color: $background;
     position: relative;
-    @include media("<=custom"){
-      @include size(100%,100%);
-  }
-    .form{
+    @include media("<=custom") {
+      @include size(100%, 100%);
+    }
+    .form {
       padding-top: 10%;
-      @include border(2px ,none,12px);
-      @include size(60%,75%);
-      @include position(absolute,50%,50%);
+      @include border(2px, none, 12px);
+      @include size(60%, 75%);
+      @include position(absolute, 50%, 50%);
       @include flex(none);
       flex-direction: column;
-      transform: translate(-50%,-50%);
+      transform: translate(-50%, -50%);
       animation: rotate 15s infinite linear;
-      @include media("<=custom"){
-        @include size(90%,60%);
-    }
-    .errorLOGIN{
-      margin: 1% 0%;
-      @include size(90%,10%);
-      @include flex();
-      @include font(large,520);
-      color: red;
-    }
-      h1{
-        @include font(x-large,525px,italic);
+      @include media("<=custom") {
+        @include size(90%, 60%);
+      }
+      .errorLOGIN {
+        margin: 1% 0%;
+        @include size(90%, 10%);
+        @include flex();
+        @include font(large, 520);
+        color: red;
+      }
+      h1 {
+        @include font(x-large, 525px, italic);
         margin: 3%;
-        @include media("<=custom"){
+        @include media("<=custom") {
           margin-top: 6%;
+        }
       }
-      }
-      img{
-        @include size(22%,20%);
-        @include position(absolute,-11%,40%);
+      img {
+        @include size(22%, 20%);
+        @include position(absolute, -11%, 40%);
         border-radius: 50%;
-        @include border(1px,rgb(74, 74, 74),50%);
+        @include border(1px, rgb(74, 74, 74), 50%);
       }
-      .nom,.phone,.address,.email,.passwordd,.cpasswordd{
-        @include size(90%,8%);
+      .nom,
+      .phone,
+      .address,
+      .email,
+      .passwordd,
+      .cpasswordd {
+        @include size(90%, 8%);
         @include flex(space-around);
         // @include border(1px,green,2px);
         margin-bottom: 20px;
-        .inputIcon{
-          @include size(30%,100%);
+        .inputIcon {
+          @include size(30%, 100%);
           @include flex();
-          text-align: center
-        }
-        .input{
-          @include size(70%,100%)
-        }
-        .input input{
-          @include size(100%,100%);
           text-align: center;
-          @include border(1px,black,8px)
+        }
+        .input {
+          @include size(70%, 100%);
+        }
+        .input input {
+          @include size(100%, 100%);
+          text-align: center;
+          @include border(1px, black, 8px);
         }
       }
-      button{
-        @include size(30%,8%);
+      button {
+        @include size(30%, 8%);
         color: white;
         background-color: lighten($color: $secondary, $amount: 15%);
-        @include border(0px,none,10px);
+        @include border(0px, none, 10px);
         border: none;
         cursor: pointer;
         margin: 2%;
-        &:hover{
+        &:hover {
           background-color: $secondary;
         }
       }
@@ -103,38 +108,38 @@
   }
 }
 
-@keyframes rotate{
-  0%{
+@keyframes rotate {
+  0% {
     box-shadow: 4px 0px 15px $main;
   }
-  10%{
+  10% {
     box-shadow: 0px -4px 15px lighten($color: $main, $amount: 1%);
   }
-  20%{
+  20% {
     box-shadow: -4px 0px 0px lighten($color: $main, $amount: 2%);
   }
-  30%{
+  30% {
     box-shadow: 0px 4px 15px lighten($color: $main, $amount: 3%);
   }
-  40%{
+  40% {
     box-shadow: 4px 0px 15px lighten($color: $main, $amount: 4%);
   }
-  50%{
+  50% {
     box-shadow: 0px -4px 0px lighten($color: $main, $amount: 4%);
   }
-  60%{
+  60% {
     box-shadow: -4px 0px 15px lighten($color: $main, $amount: 5%);
   }
-  70%{
+  70% {
     box-shadow: 0px 4px 15px lighten($color: $main, $amount: 6%);
   }
-  80%{
+  80% {
     box-shadow: 4px 0px 15px lighten($color: $main, $amount: 7%);
   }
-  90%{
+  90% {
     box-shadow: 0px -4px 15px lighten($color: $main, $amount: 8%);
   }
-  100%{
+  100% {
     box-shadow: -4px 0px 15px lighten($color: $main, $amount: 9%);
   }
 }

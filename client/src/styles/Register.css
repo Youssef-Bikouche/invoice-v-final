@@ -24,7 +24,7 @@
   bottom: none;
   width: 3.5%;
   height: 3.5%;
-  color: #FC7D57;
+  color: #fc7d57;
   cursor: pointer;
 }
 .Register-container .left-side {
@@ -64,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FBFAFB;
+  background-color: #fbfafb;
   position: relative;
 }
 @media (max-width: 920px) {
@@ -134,7 +134,12 @@
   border: 1px solid rgb(74, 74, 74);
   border-radius: 50%;
 }
-.Register-container .right-side .form .nom, .Register-container .right-side .form .phone, .Register-container .right-side .form .address, .Register-container .right-side .form .email, .Register-container .right-side .form .passwordd, .Register-container .right-side .form .cpasswordd {
+.Register-container .right-side .form .nom,
+.Register-container .right-side .form .phone,
+.Register-container .right-side .form .address,
+.Register-container .right-side .form .email,
+.Register-container .right-side .form .passwordd,
+.Register-container .right-side .form .cpasswordd {
   width: 90%;
   height: 8%;
   display: flex;
@@ -142,7 +147,12 @@
   justify-content: space-around;
   margin-bottom: 20px;
 }
-.Register-container .right-side .form .nom .inputIcon, .Register-container .right-side .form .phone .inputIcon, .Register-container .right-side .form .address .inputIcon, .Register-container .right-side .form .email .inputIcon, .Register-container .right-side .form .passwordd .inputIcon, .Register-container .right-side .form .cpasswordd .inputIcon {
+.Register-container .right-side .form .nom .inputIcon,
+.Register-container .right-side .form .phone .inputIcon,
+.Register-container .right-side .form .address .inputIcon,
+.Register-container .right-side .form .email .inputIcon,
+.Register-container .right-side .form .passwordd .inputIcon,
+.Register-container .right-side .form .cpasswordd .inputIcon {
   width: 30%;
   height: 100%;
   display: flex;
@@ -150,11 +160,21 @@
   justify-content: center;
   text-align: center;
 }
-.Register-container .right-side .form .nom .input, .Register-container .right-side .form .phone .input, .Register-container .right-side .form .address .input, .Register-container .right-side .form .email .input, .Register-container .right-side .form .passwordd .input, .Register-container .right-side .form .cpasswordd .input {
+.Register-container .right-side .form .nom .input,
+.Register-container .right-side .form .phone .input,
+.Register-container .right-side .form .address .input,
+.Register-container .right-side .form .email .input,
+.Register-container .right-side .form .passwordd .input,
+.Register-container .right-side .form .cpasswordd .input {
   width: 70%;
   height: 100%;
 }
-.Register-container .right-side .form .nom .input input, .Register-container .right-side .form .phone .input input, .Register-container .right-side .form .address .input input, .Register-container .right-side .form .email .input input, .Register-container .right-side .form .passwordd .input input, .Register-container .right-side .form .cpasswordd .input input {
+.Register-container .right-side .form .nom .input input,
+.Register-container .right-side .form .phone .input input,
+.Register-container .right-side .form .address .input input,
+.Register-container .right-side .form .email .input input,
+.Register-container .right-side .form .passwordd .input input,
+.Register-container .right-side .form .cpasswordd .input input {
   width: 100%;
   height: 100%;
   text-align: center;
@@ -173,7 +193,7 @@
   margin: 2%;
 }
 .Register-container .right-side .form button:hover {
-  background-color: #FC7D57;
+  background-color: #fc7d57;
 }
 
 @keyframes rotate {

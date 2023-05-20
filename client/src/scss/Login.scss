@@ -1,141 +1,141 @@
-@import './utilities/mixins';
-@import './utilities/breakpoints';
-@import './utilities/colors';
+@import "./utilities/mixins";
+@import "./utilities/breakpoints";
+@import "./utilities/colors";
 
-.login-container{
-  @include size(100%,100vh);
+.login-container {
+  @include size(100%, 100vh);
   @include flex(center);
-  .Home{
-    @include position(absolute,15px,none,15px,none);
-    @include size(3.5%,3.5%);
+  .Home {
+    @include position(absolute, 15px, none, 15px, none);
+    @include size(3.5%, 3.5%);
     color: $secondary;
     cursor: pointer;
   }
-  .left-side{
-    @include size(45%,100%);
-    @include border(2px,green,0);
+  .left-side {
+    @include size(45%, 100%);
+    @include border(2px, green, 0);
     @include flex();
     @include position(relative);
-    background-color:  $main;
-    @include media("<=custom"){
-        display: none;
+    background-color: $main;
+    @include media("<=custom") {
+      display: none;
     }
-    video{
+    video {
       // @include border(6px ,rgb(251, 6, 6),12px);
-      @include size(75%,75%);
-      @include position(absolute,50%,50%);
-      transform: translate(-50%,-50%);
+      @include size(75%, 75%);
+      @include position(absolute, 50%, 50%);
+      transform: translate(-50%, -50%);
       z-index: 22;
     }
   }
-  .right-side{
-    @include size(55%,100%);
+  .right-side {
+    @include size(55%, 100%);
     // @include border(2px,red,0);
     @include flex();
     background-color: $background;
     position: relative;
-    @include media("<=custom"){
-      @include size(100%,100%);
-  }
-    .form{
+    @include media("<=custom") {
+      @include size(100%, 100%);
+    }
+    .form {
       padding-top: 10%;
-      @include border(2px ,none,12px);
-      @include size(50%,65%);
-      @include position(absolute,50%,50%);
+      @include border(2px, none, 12px);
+      @include size(50%, 65%);
+      @include position(absolute, 50%, 50%);
       @include flex(none);
       flex-direction: column;
-      transform: translate(-50%,-50%);
+      transform: translate(-50%, -50%);
       animation: rotate 15s infinite linear;
-      @include media("<=custom"){
-        @include size(90%,50%);
-    }
-      h1{
-        @include font(x-large,525px,italic);
-        @include media("<=custom"){
+      @include media("<=custom") {
+        @include size(90%, 50%);
+      }
+      h1 {
+        @include font(x-large, 525px, italic);
+        @include media("<=custom") {
           margin-top: 6%;
+        }
       }
+      img {
+        @include size(25%, 22%);
+        @include position(absolute, -11%, 37.5%);
+        @include border(1px, rgb(74, 74, 74), 50%);
       }
-      img{
-        @include size(25%,22%);
-        @include position(absolute,-11%,37.5%);
-        @include border(1px,rgb(74, 74, 74),50%);
-      }
-      label{
-        @include font(large,500);
+      label {
+        @include font(large, 500);
         margin: 4%;
-        @include media("<=custom"){
-          @include font(larger,500);
+        @include media("<=custom") {
+          @include font(larger, 500);
+        }
       }
-      }
-      input{
-        @include size(80%,11%);
-        @include border(1px,gray,10px);
+      input {
+        @include size(80%, 11%);
+        @include border(1px, gray, 10px);
         text-align: center;
         margin-bottom: 2%;
       }
-      a{
-        @include font(medium,500,italic);
+      a {
+        @include font(medium, 500, italic);
         color: $main;
         margin: 4%;
       }
-      button{
-        @include size(32%,9%);
+      button {
+        @include size(32%, 9%);
         color: white;
         background-color: lighten($color: $secondary, $amount: 15%);
-        @include border(0px,none,10px);
+        @include border(0px, none, 10px);
         border: none;
         cursor: pointer;
         margin: 2%;
-        &:hover{
+        &:hover {
           background-color: $secondary;
         }
       }
-      .errorLOGIN{
+      .errorLOGIN {
         margin: 1% 0%;
-        @include size(90%,10%);
+        @include size(90%, 10%);
         @include flex();
-        @include font(large,520);
+        @include font(large, 520);
         color: red;
       }
-      .inputRED{
-        @include border(2px,red)
+      .inputRED {
+        @include border(2px, red);
       }
     }
   }
 }
 
-@keyframes rotate{
-  0%{
+@keyframes rotate {
+  0% {
     box-shadow: 4px 0px 15px $main;
   }
-  10%{
+  10% {
     box-shadow: 0px -4px 15px lighten($color: $main, $amount: 1%);
   }
-  20%{
+  20% {
     box-shadow: -4px 0px 0px lighten($color: $main, $amount: 2%);
   }
-  30%{
+  30% {
     box-shadow: 0px 4px 15px lighten($color: $main, $amount: 3%);
   }
-  40%{
+  40% {
     box-shadow: 4px 0px 15px lighten($color: $main, $amount: 4%);
   }
-  50%{
+  50% {
     box-shadow: 0px -4px 0px lighten($color: $main, $amount: 4%);
   }
-  60%{
+  60% {
     box-shadow: -4px 0px 15px lighten($color: $main, $amount: 5%);
   }
-  70%{
+  70% {
     box-shadow: 0px 4px 15px lighten($color: $main, $amount: 6%);
   }
-  80%{
+  80% {
     box-shadow: 4px 0px 15px lighten($color: $main, $amount: 7%);
   }
-  90%{
+  90% {
     box-shadow: 0px -4px 15px lighten($color: $main, $amount: 8%);
   }
-  100%{
+  100% {
     box-shadow: -4px 0px 15px lighten($color: $main, $amount: 9%);
   }
 }
