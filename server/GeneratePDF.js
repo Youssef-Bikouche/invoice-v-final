@@ -1,13 +1,14 @@
 
 
+
   const express = require('express');
-  const app = express();
+ const app = express();
   const cors = require('cors');
   const easyinvoice = require('easyinvoice');
   var fs = require('fs');
   app.use(express.json());
   app.use(cors()); // Enable CORS for all routes
-  let clientGlobal = {};
+
   app.get('/', (req,res)=>{
      res.send('hhhhhhhhhhhhh');
 
@@ -19,8 +20,10 @@
     let {client} = req.body;
     let {cashier} = req.body;
     let {discount} = req.body;
+    let {currency} = req.body;
     let {numberOfInvoice} = req.body;
      console.log('items  : ',items);
+     console.log('currency: ',currency)
      console.log('tax  : ', parseFloat(taxe));
     //  console.log('total  : ',total);
     //  console.log('client  : ',client);
@@ -49,7 +52,7 @@
               //  "template": fs.readFileSync('template.html', 'base64') // Must be base64 encoded html 
           },
           "images": {
-            logo: fs.readFileSync('logoprinc.png', 'base64'),
+         //   logo: fs.readFileSync('logoprinc.png', 'base64'),
            // background: fs.readFileSync('images/background.png', 'base64')
         },
           // Your own data
@@ -93,7 +96,7 @@
           
           // Settings to customize your invoice
           "settings": {
-              "currency": "USD", // See documentation 'Locales and Currency' for more info. Leave empty for no currency.
+              "currency": currency, // See documentation 'Locales and Currency' for more info. Leave empty for no currency.
               "locale": "nl-NL", // Defaults to en-US, used for number formatting (See documentation 'Locales and Currency')        
               "margin-top": 25, // Defaults to '25'
               "margin-right": 25, // Defaults to '25'
@@ -125,7 +128,7 @@
         easyinvoice.createInvoice(data, async function (result) {
             //The response will contain a base64 encoded PDF file
            // console.log('PDF base64 string: ', result.pdf);
-                 fs.writeFileSync("invoice.pdf", result.pdf, 'base64');
+                // fs.writeFileSync("invoice.pdf", result.pdf, 'base64');
                  res.json({'invoice':result.pdf});
             });
       } catch (error) {
@@ -166,6 +169,6 @@
   /*************** */
 
 
-  app.listen(4000 , ()=>{
+  app.listen(5000 , ()=>{
       console.log('server running....');
   })
