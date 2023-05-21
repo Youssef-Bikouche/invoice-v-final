@@ -24,7 +24,7 @@ body {
   border-radius: 10px;
   font-family: "IBM Plex Sans";
   @include media("<=tablet") {
-    .btns button {
+    .btns-auto button {
       width: 25%;
     }
   }
@@ -37,7 +37,7 @@ body {
     width: 95%;
   }
 }
-.btns {
+.btns-auto {
   display: flex;
   position: absolute;
   width: 80%;
@@ -45,7 +45,7 @@ body {
   margin-left: 10%;
   top: 20px;
 }
-.btns button {
+.btns-auto button {
   height: 40px;
   width: 150px;
   border-radius: 5px;
@@ -55,14 +55,14 @@ body {
   font-weight: 600;
   font-size: 15px;
 }
-.btns button:hover {
+.btns-auto button:hover {
   background-color: #13aa52d2;
   cursor: pointer;
 }
-.btns #download {
+.btns-auto #download {
   background-color: #36a9ae;
 }
-.btns #download:hover {
+.btns-auto #download:hover {
   background-color: #36a8aeb0;
 }
 .invoice {

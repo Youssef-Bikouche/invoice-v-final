@@ -33,7 +33,7 @@ body {
   font-family: "IBM Plex Sans";
 }
 @media (max-width: 768px) {
-  .all .btns button {
+  .all .btns-auto button {
     width: 25%;
   }
 }
@@ -43,7 +43,7 @@ body {
     width: 95%;
   }
 }
-.btns {
+.btns-auto {
   display: flex;
   position: absolute;
   width: 80%;
@@ -52,7 +52,7 @@ body {
   top: 20px;
 }
 
-.btns button {
+.btns-auto button {
   height: 40px;
   width: 150px;
   border-radius: 5px;
@@ -63,16 +63,16 @@ body {
   font-size: 15px;
 }
 
-.btns button:hover {
+.btns-auto button:hover {
   background-color: rgba(19, 170, 82, 0.8235294118);
   cursor: pointer;
 }
 
-.btns #download {
+.btns-auto #download {
   background-color: #36a9ae;
 }
 
-.btns #download:hover {
+.btns-auto #download:hover {
   background-color: rgba(54, 168, 174, 0.6901960784);
 }
 

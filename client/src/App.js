@@ -6,6 +6,7 @@ import Register from "./components/Register";
 import InvoiceAuto from "./components/InvoiceAuto";
 import Footer from "./components/Footer";
 import InvoiceManu from "./components/InvoiceManu";
+import HandleProduct from "./components/HandleProducts";
 function App() {
   return (
     <Router>
@@ -60,12 +61,23 @@ function App() {
           }
         />
 
-<Route
+      <Route
           exact
           path="/invoiceManu"
           element={
             <>
               <InvoiceManu />
+            </>
+          }
+        />
+
+        <Route
+          exact
+          path="/handleProducts"
+          element={
+            <>
+              <Navbar/>
+              <HandleProduct/>
             </>
           }
         />

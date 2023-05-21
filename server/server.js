@@ -80,6 +80,19 @@ app.post('/getPRODUCTS',async(req,res)=>{
     console.log(error)
   }
 })
+
+app.post('/deletePRODUCT',async (req,res)=>{
+  try {
+    await prisma.product.delete({
+      where :{
+        id: req.body.id,
+      }
+    })
+     res.json({"message": "deleted"})
+  } catch (error) {
+     console.log(error);
+  }
+})
 //*********************************************************** */
 app.post('/companyInfo',async(req,res)=>{
   try {
@@ -164,6 +177,24 @@ app.post('/getCLIENTS',async(req,res)=>{
 //   }
   
 // })
+app.post('/searchPRODUCT',async(req,res)=>{
+  const searchterm = req.body.term;
+  const companyId = req.body.id;
+  try {
+    const product = await prisma.product.findMany({
+      where: {
+        companyId: companyId,
+        name: {
+          contains: searchterm,
+          }
+        }
+      })
+      res.json({"product" : product})
+      console.log(product)
+    } catch (error) {
+      res.json(error)
+    }
+})
 app.listen('5000',()=>{
   console.log('listening to server on port 5000')
 })

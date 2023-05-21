@@ -1,0 +1,194 @@
+/**
+*
+* Testing
+*
+**/
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Ubuntu:wght@300;400;500;700&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.Products-table-container {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/src/media/productsBackground2.jpg);
+  background-repeat: none;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  min-height: 100vh;
+  font-family: Ubuntu;
+  font-size: larger;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: none;
+  bottom: none;
+  bottom: 0;
+  background-color: rgb(255, 224, 224);
+  padding: 5% 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Products-table-container .Products-table {
+  width: 90%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: none;
+  flex-direction: column;
+}
+.Products-table-container .Products-table input {
+  margin: 2% 0 1% 0;
+  padding: 1%;
+  width: 60%;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.Products-table-container .products-table-header, .Products-table-container .products-table-content {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+@media (max-width: 768px) {
+  .Products-table-container .products-table-header, .Products-table-container .products-table-content {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: medium;
+    font-weight: 510;
+    font-style: italic;
+  }
+}
+.Products-table-container .products-table-content {
+  min-height: 15%;
+  overflow: hidden;
+}
+.Products-table-container .products-table-content div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Products-table-container .product-name {
+  width: 25%;
+}
+.Products-table-container .product-cost {
+  width: 15%;
+}
+.Products-table-container .product-description {
+  width: 35%;
+}
+.Products-table-container .product-options {
+  width: 25%;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (max-width: 768px) {
+  .Products-table-container .product-options {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.Products-table-container .product-options button {
+  width: 40%;
+  height: 40px;
+  border: 0px solid none;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin: 2%;
+  color: white;
+  background-color: rgb(255, 93, 93);
+  transition: background-color 0, 5s;
+}
+.Products-table-container .product-options button:hover {
+  background-color: rgb(255, 0, 0);
+}
+@media (max-width: 768px) {
+  .Products-table-container .product-options button {
+    width: 80%;
+    height: 35%;
+    margin: 4px;
+  }
+}
+.Products-table-container .x {
+  border: 0.1px solid white;
+  border-radius: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1.5%;
+  min-height: 100px;
+}
+.Products-table-container .product-message {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: x-large;
+  font-weight: 512;
+  font-style: normal;
+}
+.Products-table-container .product-message {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: xx-large;
+  font-weight: 520;
+  font-style: normal;
+  margin: 2%;
+}
+.Products-table-container .popDeleteProduct {
+  height: auto;
+  width: 500px;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.997);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  top: 40%;
+  left: 35%;
+  border-radius: 12px;
+}
+@media (max-width: 768px) {
+  .Products-table-container .popDeleteProduct {
+    left: 10%;
+    width: 80%;
+    height: auto;
+    padding: 1%;
+    text-align: center;
+  }
+}
+.Products-table-container .popDeleteProduct h2 {
+  margin: 40px 0;
+}
+.Products-table-container .delete-options {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.Products-table-container .delete-options button {
+  background-color: rgb(255, 131, 131);
+  color: rgb(255, 255, 255);
+  width: 25%;
+  height: 30px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+.Products-table-container .delete-options button:hover {
+  background-color: red;
+  color: white;
+}
+.Products-table-container .close-pop {
+  position: absolute;
+  cursor: pointer;
+  right: 6px;
+  top: 2px;
+  color: red;
+}/*# sourceMappingURL=HandleProducts.css.map */

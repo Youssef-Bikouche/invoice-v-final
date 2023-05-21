@@ -164,12 +164,12 @@ const DownloadPDF=()=>{
   return (<>
   {verified ? 
   (<>
-      <div className="all">
-    <div className="warning">
+    <div className="all">
+    {/* <div className="warning">
       <img className="close" src={remove} alt="" />
        You must fill out all the information
-    </div>
-    <div className="btns">
+    </div> */}
+    <div className="btns-auto">
       <button id="Preview" type="submit"onClick={()=>handleLogout()}>Preview PDF</button>
       <button id="download" type="submit" onClick={()=>DownloadPDF()} >Download PDF</button>
     </div>
