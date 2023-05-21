@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import '../styles/InvoiceManu.css';
+import "../styles/InvoiceManu.css";
 import axios from 'axios';
 import easyinvoice from 'easyinvoice';
 
@@ -19,6 +19,7 @@ const InvoiceManu = () => {
    const [cashierEmail , setCashierEmail] = useState(); 
    const [cashierAddress , setCashierAddress] = useState();
    const [invoicepdf , setinvoicepdf] = useState();
+   const [currencySelected , setCurrencySelected] = useState();
    const handleAddRow = () => {
       // Clone the last row
       const lastRow = rows[rows.length - 1];
@@ -124,6 +125,9 @@ const InvoiceManu = () => {
      }
 
      /************ */
+     const handleSelectCurrency=(e)=>{
+      setCurrencySelected(e.target.value);
+     }
   const saveNameClient=(e)=>{
       setClientName(e.target.value)
   }
@@ -148,17 +152,18 @@ setCashierEmail(e.target.value)
   
        const downloadPDF = async ()=>{
               
-        await axios.post('http://localhost:4000/InvoiceManu/downloadpdf',
+        await axios.post('http://localhost:5000/InvoiceManu/downloadpdf',
         {items : rows ,cashier: {name: cashierName , address: cashierAddress , email: cashierEmail },   
         client: {name: clientName , address: clientAddress , email: clientEmail } 
-        ,total :inputTOTALValue , numberOfInvoice: numberOfInvoice , taxe: inputTaxeValue , discount: inputDiscountValue})
+        ,total :inputTOTALValue , numberOfInvoice: numberOfInvoice , taxe: inputTaxeValue ,
+         discount: inputDiscountValue, currency:currencySelected })
 
         .then(response =>{
           console.log('res post invoice : ',response);
              setinvoicepdf(response.data.invoice);
              console.log(response.data.invoice);
           //   easyinvoice.createInvoice(response.data.invoice, function (result) {
-               easyinvoice.download('myInvoice.pdf', response.data.invoice);
+               easyinvoice.download('invoiceN°'+numberOfInvoice, response.data.invoice);
                //	you can download like this as well:
                //	easyinvoice.download();
                //	easyinvoice.download('myInvoice.pdf');   
@@ -244,12 +249,25 @@ setCashierEmail(e.target.value)
             </div>
 
             <div className="total">
+            <div className="devise">
+             <select name="selectdevise" onChange={handleSelectCurrency}>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="MAD">MAD</option>
+                <option value="DZD">DZD</option>
+                <option value="TND">TND</option>
+                <option value="SAR">SAR</option>
+                <option value="USN">USN</option>
+             </select>
+             </div>
+               <div className="inputst">
                <p>Subtotal</p><input  name='subtotal'  type="number" onInput={(e)=>calqTOTAL(e)}  value={inputSubtotalValue}  placeholder="Subtotal" id="subtotal" disabled></input> <br></br>
                <p>Taxe</p><input name='taxe' type="number" onChange={(e)=>calqTOTAL(e)}  value={inputTaxeValue}  placeholder="Taxes" id="tax"></input><br></br>
                <p>Discount</p> <input name='discount' type="number" onChange={(e)=>calqTOTAL(e)} value={inputDiscountValue}  placeholder="Discount" id="discount"></input> <br></br>
                <p>Total</p>  <input  type="number"  value={inputTOTALValue}  placeholder="Total" id="total" disabled="disabled"></input>
             </div>
-
+         
+            </div>
          </div>
       </div>
    )
