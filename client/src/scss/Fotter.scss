@@ -6,9 +6,13 @@
 .footer{
     position: relative;
     background-color: rgb(240, 235, 235);
-    top:150px;
     text-align: center; 
     font-family: ubuntu;
+    
+}
+.footer .logo{
+    text-align: center; 
+    width: 100%;
 }
 .footer .differences{
     margin-top: 10px;
@@ -19,7 +23,6 @@
         display: block;
         text-align: center;
     }
-
 
 }
 .foot{
@@ -34,7 +37,7 @@
 }
 .footer .follow img{
     width: 30px;
-    margin: 2px;
+    margin: 10px 2px;
     transition: 0.5s;
 }
 .footer .follow img:hover{
@@ -42,10 +45,11 @@
   
 }
 .footer p{
+    padding-top: 10px;
      transition:0.5s;
 }
 .footer p:hover{
-    transform: scale(1.1);
+    transform: scale(1.01);
     color: $main;
     cursor: pointer;
 }
