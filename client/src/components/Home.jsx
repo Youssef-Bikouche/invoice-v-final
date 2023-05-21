@@ -28,14 +28,14 @@ const Home = () => {
              <div id="divmanully" className='centerimg'>
              <img src="/images/manully.jpg" width="150px"/>
              </div>
-             <button> <Link to ="/InvoiceManu">Try it now</Link> </button>
+             <Link className="btnLink" to ="/InvoiceManu"> <button> Try it now</button></Link> 
             </div>
             <div className=" box box2">
             <h3>Automatic invoice</h3>
             <div className='centerimg'>
             <img src="/images/automatic.jpg" width="150px"/>
               </div> 
-              <button>Try it now</button>
+              <Link className="btnLink" to ="/Login"><button>Try it now</button></Link>
 
             </div>
             <div className=" box box3">
@@ -47,7 +47,7 @@ const Home = () => {
               <div className='centerimg'>
               <img src="/images/management2.jpg" width="160px" height="150px"/>
               </div>
-              <button>Try it now</button>
+              <Link className="btnLink" to ="/Login"><button>Try it now</button></Link> 
               
             </div>
             </div>
