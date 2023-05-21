@@ -22,9 +22,9 @@ const Navbar = () => {
     }
   };
     return ( 
-      <div className="all" style={{ backgroundColor: headerColor }}>
+      <div className="Navbar" style={{ backgroundColor: headerColor }}>
             <div className="logo"> 
-            <img id="logoImg" src="/images/logoprinc.png"  /> 
+               <img id="logoImg" src="/images/logoprinc.png"  /> 
             </div>
             <div className="nav"> 
                 <ul>
@@ -34,15 +34,11 @@ const Navbar = () => {
                     <li className=''><Link to="" className='same '>About us</Link> </li>
 
                 </ul>
-                </div>
-                <div className="sign">
-                <li className=''><Link to="/Login" className='login '>Login</Link> </li>
-                  <button className='btnSignUp '>Sign up</button>
-                </div>
-          
-                
-        
-        
+            </div>
+            <div className="sign">
+            <Link to="/Login" className='login'> <p >Login</p></Link>
+                <Link to="/Register" className='btnSignUp '> <p > Sign up </p> </Link>
+            </div>
            
       </div>
      );
