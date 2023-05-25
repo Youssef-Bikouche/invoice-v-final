@@ -13,7 +13,7 @@
   }
   .left-side {
     @include size(45%, 100%);
-    @include border(2px, green, 0);
+    // @include border(2px, green, 0);
     @include flex();
     @include position(relative);
     background-color: $main;

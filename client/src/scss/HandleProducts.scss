@@ -2,151 +2,225 @@
 @import "./utilities/mixins";
 @import "./utilities/colors";
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Ubuntu:wght@300;400;500;700&display=swap');
-.Products-table-container{
-  background:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),url(/src/media/productsBackground2.jpg);
-  @include background(fixed);
-  width: 100%;
-  min-height: 100vh;
-  font-family: Ubuntu; 
-  font-size: larger;
-  @include position(relative);
-  bottom: 0;
-  background-color: rgb(255, 224, 224);
-  padding: 5% 0 0 0;
-  @include flex(center);
-  .Products-table{
-   @include size(90%,80%);
-   @include flex(none);
-   flex-direction: column;
 
+
+.all-table-btns{
+  position: relative;
+  top:80px;
+  width: 100%;
+  height: 100vh;
+  max-height: max-content;
+}
+.container-all{
+
+    width: 90%;
+    margin: auto;
+    #divloadinggif{
+      position: relative;
+      width: 100%;
+      text-align: center;
+      top: 100px;
+      #loadinggif{
+        margin:auto;
+     }
+    }
+
+}
+
+.btn-add-product{
+ // border:1px solid rgb(13, 226, 31);
+  height: 40px;
+  position: relative;
+  .addbtn{
+    position: absolute;
+    right: 5px;
+    height: 100%;
+     padding: 2px;
+     border-radius: 5px;
+     border: none;
+     background-color: #16e60f;
+     color: white;
+     font-weight: 900;
+     @include media('<900px'){
+      height: 70%;
+     }
+  }
+}
+.search-product{
+ // border:1px solid rgb(25, 0, 255);
+  height: 50px;
+  text-align: center;
+  margin-top: 10px;
    input{
-    margin: 2% 0 1% 0;
-    padding: 1%;
-    width: 60%;
-    text-align: center;
-    @include border(1px,black,10px)
+     height: 100%;
+     width: 40%;
+     border-radius:5px;
+     padding-left: 5px;
+     border: none;
+     outline: none;
+     @include media('<900px'){
+      width: 90%;
+      height: 70%;
+     }
    }
+}
+.table-display-products{
+  margin-top: 20px;
+  text-align: center;
+  .product-message{
+   height: 100%;
+   @include font(larger,540);
+   @include flex();
+   color: red;
   }
-  .products-table-header,.products-table-content{
-  
-    @include size(100%,15%);
-    @include flex();
-    color: white;
-    @include media('<=tablet'){
-      @include font(medium,510,italic);
+    table{
+      margin: auto;
+      width: 80%;
+      border-collapse:collapse;
+      @include media('<900px'){
+        width: 100%;
+       }
+      th{
+         background-color:  #3b3452;
+         height: 40px;
+         color: white;
+      }
+      td{
+        border: 1px solid #5f86a8;
+        height: 50px;
+        max-height: max-content;
+         button{
+          width: 60%;
+           border: none;
+           color: #ffffff;
+           padding: 5%;
+           border-radius: 5px;
+           transition: 0.5s;
+           img{
+             width: 20px;
+             height: 20px;
+           }
+         }
+         button:hover{
+         transform: scale(1.1);
+           cursor: pointer;
+         }
+      }
+
     }
-  }
-  .products-table-content{
+}
+.edit-pop{
+  position: absolute;
+   top:10%;
+   left:10%;
+   background-color: #e8e8f0;
+      width: 80%;
+      height: auto;
+      text-align: center;
+      // padding: 10px;
+       border-radius: 10px;
+       box-shadow: 2px 2px 10px black;
+       @include media('<600px'){
+         width: 80%;
+       }
+ }
+ .edit-pop #title,.edit-pop #price,.edit-pop #description{
+   width: 90%;
+   height: 35px;
+   text-align: start;
+   border: none;
+   outline: none;
+   font-family: Ubuntu;
+   font-weight: 900;
+   font-size:16px;
+   margin: 5px;
+   padding: 5px;
+   
+ }
+ .edit-pop #edit-btn{
+   width: 20%;
+   height: 40px;
+   margin-top: 20px;
+   border-radius: 5px;
+   border: none;
+   font-family: Ubuntu;
+   //font-weight: 900;
+   font-size:20px;
+   background-color:#6060ebd0;
+   color: #fff;
+   margin-bottom: 10px;
+ }
+ .edit-pop #edit-btn:hover{
+    background-color: #6060eb;
+ }
+ .edit-pop p{
+   margin-top: 20px;
+   font-family: Ubuntu;
+   text-shadow: 3px 3px 15px black
+ }
+ .close-pop-edit{
+   @include size(30px,30px);
+   font-weight: 900;
+   font-size: 25px;
+   z-index: 6;
+   position: absolute;
+   cursor: pointer;
+   right: 6px;
+   top: 2px;
+   color: #ff2a2a;
+   text-shadow: 1px 1px 15px  black;
+ }
+/****/
+ .popDeleteProduct{
+  height: auto;
+  width: 500px;
+  position: absolute;
+  background-color: rgba(163, 158, 158, 0.997);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  top:40%;
+  left:50%;
+  transform: translate(-50%, -50%); 
+  border-radius: 5px;
+  @include media('<=tablet'){
     
-    min-height: 15%;
-    overflow: hidden;
-    div{
-        @include flex();
-    }
+    @include size(80%,auto);
+    padding: 1%;
+    text-align: center;
   }
-  .product-name{
+  }
+  
+  .popDeleteProduct h2{
+    margin:40px 0;
+  }
+
+  .delete-options{
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .delete-options button{
+    background-color: rgb(255, 131, 131);
+    color: rgb(255, 255, 255);
     width: 25%;
-  }
-  .product-cost{
-    width: 15%;
-  }
-  .product-description{
-    width: 35%;
-  }
-  .product-options{
-    width: 25%;
-    min-height: 80px;
-    @include flex(space-between);
-    @include media("<=tablet"){
-      display: flex;
-      flex-direction: column;
-      
-    }
-  }
-  .product-options button{
-    width: 40%;
-    height: 40px;    
-    @include border(0px,none,8px);
+    height: 30px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
-    margin: 2%;
+  }
+  .delete-options button:hover{
+    background-color: red;
     color: white;
-    background-color: rgb(255, 93, 93);
-    transition: background-color 0,5s;
-    &:hover{
-      background-color: rgb(255, 0, 0);
-    }
-    @include media("<=tablet"){
-      
-        @include size(80%,35%);
-        margin: 4px;
-      
-    }
-    
   }
-  .x{
-    @include border(0.1px,white,0px);
-    @include flex();
-    height: 100%;
-    padding: 1.5%;
-    min-height: 100px;
+  .close-pop{
+    position: absolute;
+    cursor: pointer;
+    right: 6px;
+    top: 2px;
+    color: red;
   }
-  .product-message{
-    @include font(x-large,512);
-  }
-  .product-message{
-    @include font(xx-large,520);
-    margin: 2%;
-  }
-  .popDeleteProduct{
-    height: auto;
-    width: 500px;
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.997);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: white;
-    top: 40%;
-    left: 35%;
-    border-radius: 12px;
-    @include media('<=tablet'){
-      left: 10%;
-      @include size(80%,auto);
-      padding: 1%;
-      text-align: center;
-    }
-    }
-    .popDeleteProduct h2{
-      margin:40px 0;
-    }
-
-    .delete-options{
-      width: 100%;
-      min-height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-    }
-    .delete-options button{
-      background-color: rgb(255, 131, 131);
-      color: rgb(255, 255, 255);
-      width: 25%;
-      height: 30px;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-    }
-    .delete-options button:hover{
-      background-color: red;
-      color: white;
-    }
-    .close-pop{
-      position: absolute;
-      cursor: pointer;
-      right: 6px;
-      top: 2px;
-      color: red;
-    }
-    
-}   
+  /*****/

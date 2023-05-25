@@ -8,6 +8,8 @@ import { getCompanyInfo } from "./utilities/getCompany";
 import { useEffect, useState } from "react";
 import { format } from 'date-fns';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import easyinvoice from 'easyinvoice';
 
 const InvoiceAuto = () => {
   const [rows, setRows] = useState([{item: '',unitCost: 0,quantity: '',lineTotal: 0}]); 
@@ -16,6 +18,8 @@ const InvoiceAuto = () => {
   const formattedDate = format(currentDate, 'dd/MM/yyyy');
   const navigate = useNavigate("");
   const [verified,setverified]=useState(false);
+  const [invoicepdf,setinvoicepdf]=useState('');
+  const [currencySelected,setCurrencySelected]=useState('');
 //************************************************************************************** */
   useEffect(()=>{
     checkLogin(setverified,navigate);
@@ -134,44 +138,86 @@ useEffect(()=>{
    setTotal(caclulTax_Discount)
 },[Tax,Discount,subTOTAL])
 //*************************************************************************************************** */
-const DownloadPDF=()=>{
-     console.log("email customer",emailCustomer);
-     console.log("adresse customer",addressCustomer);
-     console.log("customer name",fullName)
-     console.log("***********************************************")
+// const DownloadPDF=async()=>{
+//      console.log("email customer",emailCustomer);
+//      console.log("adresse customer",addressCustomer);
+//      console.log("customer name",fullName)
+//      console.log("***********************************************")
 
-     console.log("company name",company.name)
-     console.log("adresse company",company.address);
-     console.log("customer email",company.email)
-     console.log("***********************************************")
-     console.log("time",formattedDate);
-     console.log("number",invoiceNumber)
+//      console.log("company name",company.name)
+//      console.log("adresse company",company.address);
+//      console.log("customer email",company.email)
+//      console.log("***********************************************")
+//      console.log("time",formattedDate);
+//      console.log("number",invoiceNumber)
 
-     console.log("***********************************************")
+//      console.log("***********************************************")
 
-      rows.forEach(row=>{
-        console.log(row.item,row.unitCost,row.quantity,row.lineTotal)
-      })
+//       rows.forEach(row=>{
+//         console.log(row.item,row.unitCost,row.quantity,row.lineTotal)
+//       })
 
-      console.log("***********************************************")
-      console.log("subtotal",subTOTAL);
-      console.log("tax",Tax)
-      console.log("discount",Discount)
-      console.log("Total",Total)
-}
+//       console.log("***********************************************")
+//       console.log("subtotal",subTOTAL);
+//       console.log("tax",Tax)
+//       console.log("discount",Discount)
+//       console.log("Total",Total);
+      
+// }
+const downloadPDF = async ()=>{
+              
+  await axios.post('http://localhost:5000/downloadpdf',
+  {items : rows ,cashier: {name: company.name , address: company.address , email: company.email },   
+  client: {name: fullName , address: addressCustomer , email: emailCustomer } 
+  ,total :Total , numberOfInvoice: invoiceNumber , taxe: Tax , discount: Discount,currency:currencySelected})
+
+  .then(response =>{
+    console.log('res post invoice : ',response);
+       setinvoicepdf(response.data.invoice);
+       console.log(response.data.invoice);
+       easyinvoice.download('myInvoice.pdf', response.data.invoice);
+         
+  })
+  .catch(err=>{
+     console.error(err);
+  }) 
+ }
+ const previewPDF = async ()=>{
+              
+  await axios.post('http://localhost:5000/downloadPDF',
+  {items : rows ,cashier: {name: company.name , address: company.address , email: company.email },   
+  client: {name: fullName , address: addressCustomer , email: emailCustomer } 
+  ,total :Total , numberOfInvoice: invoiceNumber , taxe: Tax , discount: Discount,currency:currencySelected})
+
+  .then( async response =>{
+    console.log('res post invoice : ',response);
+       setinvoicepdf(response.data.invoice);
+       console.log(response.data.invoice);
+      // const result = await easyinvoice.createInvoice(data);
+       easyinvoice.render('pdf', response.data.invoice);
+                       
+  })
+  .catch(err=>{
+     console.error(err);
+  })     
+ }
+ const handleSelectCurrency=(e)=>{
+  setCurrencySelected(e.target.value);
+
+ }
 
 //*************************************************************************************************** */
   return (<>
   {verified ? 
   (<>
-    <div className="all">
+    <div className="container-invoice-auto">
     {/* <div className="warning">
       <img className="close" src={remove} alt="" />
        You must fill out all the information
     </div> */}
     <div className="btns-auto">
-      <button id="Preview" type="submit"onClick={()=>handleLogout()}>Preview PDF</button>
-      <button id="download" type="submit" onClick={()=>DownloadPDF()} >Download PDF</button>
+      <button id="Preview" type="submit"onClick={()=>previewPDF()}>Preview PDF</button>
+      <button id="download" type="submit" onClick={()=>downloadPDF()} >Download PDF</button>
     </div>
     <div className="invoice">
       <div className="general-info">
@@ -284,18 +330,35 @@ const DownloadPDF=()=>{
       </div>
 
         <div className="total">
-          Sub Total: <input type="number" placeholder="Subtotal" value={subTOTAL} disabled/><br />
-          Tax: <input type="number" placeholder="%" value={Tax} onChange={(e)=>handleTax(e.target.value)}/><br />
-          Discount: <input type="number" placeholder="%" value={Discount} onChange={(e)=>handleDiscount(e.target.value)}/><br/>
-          Total to pay:
-            <input
-              type="number"
-              value={Total}
-              placeholder={Total}
-              disabled
-            />
+        <div className="devise">
+             <select id="selectdevise" name="selectdevise" onChange={handleSelectCurrency}>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="MAD">MAD</option>
+                <option value="DZD">DZD</option>
+                <option value="TND">TND</option>
+                <option value="SAR">SAR</option>
+                <option value="USN">USN</option>
+             </select>
+             </div>
+
+             <div className="inputst">
+              Sub Total: <input type="number" placeholder="Subtotal" value={subTOTAL} disabled/><br />
+              Tax: <input type="number" placeholder="%" value={Tax} onChange={(e)=>handleTax(e.target.value)}/><br />
+              Discount: <input type="number" placeholder="%" value={Discount} onChange={(e)=>handleDiscount(e.target.value)}/><br/>
+              Total to pay:
+                <input
+                  type="number"
+                  value={Total}
+                  placeholder={Total}
+                  disabled
+                />
+             </div>
+             
         </div>
       </div>
+      <div className="invoice-preview-p">this is your invoice:</div>
+         <div id="pdf"></div>
     </div>
   </>)
   :(<>

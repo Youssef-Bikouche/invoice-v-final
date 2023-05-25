@@ -30,8 +30,6 @@
 .login-container .left-side {
   width: 45%;
   height: 100%;
-  border: 2px solid green;
-  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;

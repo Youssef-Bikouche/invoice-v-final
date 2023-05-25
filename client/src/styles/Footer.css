@@ -10,22 +10,28 @@
   padding: 0;
 }
 
-.footer {
+.footer-all {
   position: relative;
-  background-color: rgb(240, 235, 235);
-  top: 150px;
+  background-color: #28282B;
+  top: 200px;
   text-align: center;
   font-family: ubuntu;
+  color: #f5f0f0;
 }
 
-.footer .differences {
+.footer-all .logo {
+  text-align: center;
+  width: 100%;
+}
+
+.footer-all .differences {
   margin-top: 10px;
   display: flex;
   justify-content: space-evenly;
   text-align: justify;
 }
 @media (max-width: 500px) {
-  .footer .differences {
+  .footer-all .differences {
     display: block;
     text-align: center;
   }
@@ -37,27 +43,28 @@
   }
 }
 
-.footer #cby {
+.footer-all #cby {
   margin-top: 20px;
   padding-bottom: 5px;
 }
 
-.footer .follow img {
+.footer-all .follow img {
   width: 30px;
-  margin: 2px;
+  margin: 10px 2px;
   transition: 0.5s;
 }
 
-.footer .follow img:hover {
+.footer-all .follow img:hover {
   transform: scale(1.1);
 }
 
-.footer p {
+.footer-all p {
+  padding-top: 10px;
   transition: 0.5s;
 }
 
-.footer p:hover {
-  transform: scale(1.1);
+.footer-all p:hover {
+  transform: scale(1.01);
   color: #6060eb;
   cursor: pointer;
 }/*# sourceMappingURL=Footer.css.map */

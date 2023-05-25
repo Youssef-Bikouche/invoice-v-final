@@ -1,8 +1,12 @@
+import { checkLogin } from './utilities/checkLogin';
 import { Link } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css'
 const Navbar = () => {
+
+  const navigate=useNavigate();
   const [headerColor, setHeaderColor] = useState('#6060eb3f');
 
   useEffect(() => {
@@ -21,6 +25,21 @@ const Navbar = () => {
       setHeaderColor('#6060eb3f'); // Réinitialiser la couleur du header
     }
   };
+
+  const [loggedIN,setloggedIN]=useState(false);
+  const [companyName,setcompanyName]=useState('');
+  useEffect(()=>{
+    checkLogin(setloggedIN,undefined);
+    setcompanyName(sessionStorage.getItem('companyName'));
+  })
+
+  const HandleLogout=()=>{
+      sessionStorage.removeItem('id');
+      sessionStorage.removeItem('companyName');
+      sessionStorage.removeItem('token');
+      navigate('/Login')
+
+  }
     return ( 
       <div className="Navbar" style={{ backgroundColor: headerColor }}>
             <div className="logo"> 
@@ -29,20 +48,31 @@ const Navbar = () => {
             <div className="nav"> 
                 <ul>
                     <li className=''><Link to="/Home" className='same '>Home</Link> </li>
-                    <li className=''><Link to="" className='same '>Services</Link> </li>
+                    <li className=''><Link to="/Home#ourServices" className='same '>Services</Link> </li>
                     <li className=''><Link to="" className='same '>Contact</Link> </li>
                     <li className=''><Link to="" className='same '>About us</Link> </li>
-
                 </ul>
             </div>
-            <div className="sign">
-                <li className=''><Link to="/Login" className='login '>Login</Link> </li>
-                <Link to="/Register" > <button className='btnSignUp '> Sign up</button></Link>
-            </div>
-          
-                
-        
-        
+            {loggedIN ? (<>
+                  <div className='companyName'>{companyName} <span style={{fontSize: "small"}}> ▼ </span>
+                 
+                  <div className='company-options'>
+                     <Link to='/invoiceManu'><div>Create Manuel invoice <span>✍🏻</span></div></Link>
+                     <Link to='/invoiceAuto'><div>Create Auto invoice <span>🚀</span></div></Link>
+                     <Link to='/Handleclients'><div>Manage clients <span>🤵</span></div></Link>
+                     <Link to='/handleProducts'><div>Manage Products <span>🛒</span></div></Link>
+                     <Link to='/settings'><div>Settings <span>⚙️</span></div></Link>
+                     <div onClick={()=>HandleLogout()}>logout  <span>⬅</span></div>
+                  </div>   
+                  </div>
+                 
+                </>)
+                :(<>
+                <div className="sign">
+                  <Link to="/Login" className='login'> <p>Login</p></Link>
+                  <Link to="/Register" className='btnSignUp '><p> Sign up </p> </Link>
+                </div>
+                </>)}
            
       </div>
      );

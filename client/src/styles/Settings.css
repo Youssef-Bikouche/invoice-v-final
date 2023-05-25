@@ -1,0 +1,207 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+*
+* Testing
+*
+**/
+.settings-container {
+  width: 100%;
+  height: 100vh;
+  padding: 12% 10% 0 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 767px) {
+  .settings-container {
+    padding: 5% 0 0 0;
+  }
+}
+.settings-container .company-stats {
+  border: 1px solid gray;
+  border-radius: 10px;
+  width: 100%;
+  height: 25%;
+  padding: 1% 0;
+  margin: 2% 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+@media (max-width: 768px) {
+  .settings-container .company-stats .company-stats-pics img {
+    width: 20px;
+    height: 20px;
+  }
+  .settings-container .company-stats .company-stats-numbers {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: small;
+    font-weight: 500;
+    font-style: normal;
+  }
+}
+.settings-container .company-stats .company-stats-pics {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.settings-container .company-stats .company-stats-pics img {
+  width: 35px;
+  height: 35px;
+}
+.settings-container .company-stats .company-stats-numbers {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.settings-container .company-settings {
+  background-color: #fff;
+  width: 70%;
+  height: 100vh;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 768px) {
+  .settings-container .company-settings {
+    width: 100%;
+    height: 80%;
+  }
+}
+.settings-container .company-settings .confirm-delete-account {
+  border: 1px solid gray;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: none;
+  bottom: none;
+  width: 40%;
+  height: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  background-color: #fff;
+  transform: translate(-40%, -50%);
+}
+.settings-container .company-settings .confirm-delete-account input {
+  height: 20%;
+}
+.settings-container .company-settings .confirm-delete-account div {
+  width: 60%;
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.settings-container .company-settings .confirm-delete-account div button {
+  width: 25%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: #8d8df1;
+}
+.settings-container .company-settings .confirm-delete-account div button:hover {
+  background-color: #6060eb;
+}
+.settings-container .company-settings .update-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: large;
+  font-weight: 520;
+  font-style: normal;
+}
+.settings-container .company-settings .company-settings-options {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+@media (max-width: 768px) {
+  .settings-container .company-settings .company-settings-options {
+    flex-direction: column;
+  }
+}
+.settings-container .company-settings .company-settings-options button {
+  width: 12%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: none;
+  color: white;
+  background-color: #8d8df1;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+.settings-container .company-settings .company-settings-options button:active {
+  background-color: #6060eb;
+}
+@media (max-width: 768px) {
+  .settings-container .company-settings .company-settings-options button {
+    width: 25%;
+    height: 50%;
+    margin: 1%;
+  }
+}
+.settings-container .company-settings .company-settings-options .setting-button-delete {
+  background-color: #ff6666;
+}
+.settings-container .company-settings .company-settings-options .setting-button-delete:active {
+  background-color: red;
+}
+.settings-container .company-settings .company-settings-options .setting-button-home {
+  background-color: #29e377;
+}
+.settings-container .company-settings .company-settings-options .setting-button-home:active {
+  background-color: #16aa54;
+}
+.settings-container .company-settings h1 {
+  text-align: center;
+}
+.settings-container .company-settings label {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: large;
+  font-weight: 500;
+  font-style: normal;
+  margin-bottom: 1%;
+}
+.settings-container .company-settings input {
+  width: 80%;
+  height: 8%;
+  border-width: 0.3px;
+  border-radius: 10px;
+  padding: 1px 10px;
+  margin-bottom: 1%;
+}
+@media (max-width: 768px) {
+  .settings-container .company-settings input {
+    width: 100%;
+    height: 6%;
+  }
+}/*# sourceMappingURL=Settings.css.map */

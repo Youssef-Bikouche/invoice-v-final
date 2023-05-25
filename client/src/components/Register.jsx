@@ -5,6 +5,7 @@ import companypic from "../media/company.jpg";
 import "../styles/Register.css";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [companyName, setcompanyName] = useState("");
   const [email, setemail] = useState("");
@@ -13,6 +14,7 @@ const Register = () => {
   const [password, setpassword] = useState("");
   const [confirmpassword, setconfirmpassword] = useState("");
   const [error, seterror] = useState("");
+  const navigate=useNavigate('');
   const handleSubmit = async () => {
     if (
       companyName.length <= 0 ||
@@ -37,6 +39,10 @@ const Register = () => {
             })
             .then((res) => {
               seterror(res.data.message);
+              if(res.data.created){
+                navigate('/Login');
+              }
+              
             });
         } else {
           seterror("Password doesnt match");

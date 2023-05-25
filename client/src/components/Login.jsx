@@ -25,13 +25,13 @@ const Login = () => {
           password,
         })
         .then(res => {
-          console.log(res.data.message);
           if(res.data.message === "found") {
             const CryptingKey = "xxx";
             const token='verified';
             const encryptedValue = CryptoJS.AES.encrypt(token,CryptingKey).toString();
             sessionStorage.setItem('token',encryptedValue);
-            sessionStorage.setItem('id',res.data.id)
+            sessionStorage.setItem('id',res.data.id);
+            sessionStorage.setItem('companyName',res.data.username)
             navigate("/InvoiceAuto",{state : {id : res.data.id}});
           } else {
             seterror(res.data.message);

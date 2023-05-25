@@ -12,9 +12,9 @@ body {
   box-sizing: border-box;
 
 }
-.all {
+.container-invoice-auto {
   position: relative;
-  top: 20px;
+  top: 100px;
   display: block;
   width: 80%;
   padding: 2%;
@@ -29,11 +29,13 @@ body {
     }
   }
 }
-// .all:not(.warning){
-//   filter: blur(10px);
-// }
+.companyName{
+  color: white;
+  @include font(large,520);
+  cursor: pointer;
+}
 @include media("<=tablet") {
-  .all {
+  .container-invoice-auto {
     width: 95%;
   }
 }

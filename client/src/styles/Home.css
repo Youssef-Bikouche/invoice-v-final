@@ -110,6 +110,7 @@
 @media (max-width: 630px) {
   #section2 .boxes {
     display: block;
+    padding-bottom: 20px;
   }
 }
 
@@ -217,4 +218,8 @@
 .box3 button:hover {
   background-color: #ff5b29;
   color: white;
+}
+
+.btnLink {
+  cursor: pointer;
 }/*# sourceMappingURL=Home.css.map */

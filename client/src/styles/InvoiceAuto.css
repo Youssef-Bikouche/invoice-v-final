@@ -20,9 +20,9 @@ body {
   box-sizing: border-box;
 }
 
-.all {
+.container-invoice-auto {
   position: relative;
-  top: 20px;
+  top: 100px;
   display: block;
   width: 80%;
   padding: 2%;
@@ -33,13 +33,22 @@ body {
   font-family: "IBM Plex Sans";
 }
 @media (max-width: 768px) {
-  .all .btns-auto button {
+  .container-invoice-auto .btns-auto button {
     width: 25%;
   }
 }
 
+.companyName {
+  color: white;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: large;
+  font-weight: 520;
+  font-style: normal;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
-  .all {
+  .container-invoice-auto {
     width: 95%;
   }
 }

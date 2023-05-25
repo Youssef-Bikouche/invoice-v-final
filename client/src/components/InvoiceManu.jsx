@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import "../styles/InvoiceManu.css";
@@ -6,7 +5,7 @@ import axios from 'axios';
 import easyinvoice from 'easyinvoice';
 
 const InvoiceManu = () => {
-   const [rows, setRows] = useState([{input1:'' , input2:'' , input3:'' , input4:''}]);
+   const [rows, setRows] = useState([{item:'' , unitCost:'' , quantity:'' , lineTotal:''}]);
    const [inputSubtotalValue,setInputSubtotalValue] = useState();
    const [inputTaxeValue,setInputTaxeValue] = useState(0);
    const [inputDiscountValue,setInputDiscountValue] = useState(0);
@@ -19,15 +18,16 @@ const InvoiceManu = () => {
    const [cashierEmail , setCashierEmail] = useState(); 
    const [cashierAddress , setCashierAddress] = useState();
    const [invoicepdf , setinvoicepdf] = useState();
+   const [currencySelected , setCurrencySelected] = useState();
    const handleAddRow = () => {
       // Clone the last row
       const lastRow = rows[rows.length - 1];
       const newRow = { ...lastRow };
       // Clear the input values in the new row
-      newRow.input1 = '';
-      newRow.input2 = '';
-      newRow.input3 = '';
-      newRow.input4 = '';
+      newRow.item = '';
+      newRow.unitCost = '';
+      newRow.quantity = '';
+      newRow.lineTotal = '';
       // Add the new row to the state
       setRows(prevRows => [...prevRows, newRow]);
    };
@@ -59,11 +59,11 @@ const InvoiceManu = () => {
    }
 
     const calqLineTotal = (e,index)=>{
-       if(e.target.name=='input2'){
-         rows[index]['input4'] = (parseFloat(e.target.value) * parseFloat(rows[index]['input3']));
+       if(e.target.name=='unitCost'){
+         rows[index]['lineTotal'] = (parseFloat(e.target.value) * parseFloat(rows[index]['quantity']));
         }
-        if(e.target.name=='input3'){
-         rows[index]['input4'] = (parseFloat(e.target.value) * parseFloat(rows[index]['input2']));
+        if(e.target.name=='quantity'){
+         rows[index]['lineTotal'] = (parseFloat(e.target.value) * parseFloat(rows[index]['unitCost']));
 
         }
     }
@@ -71,17 +71,17 @@ const InvoiceManu = () => {
       let total = 0;
       if(updatedRows){
          updatedRows.map(row=>{
-            if( !isNaN( parseFloat(row['input4']) )){
-               console.log('row==',row['input4']);
-               total += parseFloat(row['input4']);
+            if( !isNaN( parseFloat(row['lineTotal']) )){
+               console.log('row==',row['lineTotal']);
+               total += parseFloat(row['lineTotal']);
             }
                
           })
       } else{
          rows.map(row=>{
-            if( !isNaN( parseFloat(row['input4']) )){
-               console.log('row==',row['input4']);
-               total += parseFloat(row['input4']);
+            if( !isNaN( parseFloat(row['lineTotal']) )){
+               console.log('row==',row['lineTotal']);
+               total += parseFloat(row['lineTotal']);
             }
                
           })
@@ -123,42 +123,52 @@ const InvoiceManu = () => {
            setNumberOfInvoice(e.target.value);
      }
 
-     /************ */
+     /**** */
+     const handleSelectCurrency=(e)=>{
+      setCurrencySelected(e.target.value);
+    
+     }
   const saveNameClient=(e)=>{
-      setClientName(e.target.value)
+      setClientName(e.target.value);
+
   }
   const saveAddressClient=(e)=>{
-   setClientAddress(e.target.value)
+   setClientAddress(e.target.value);
+  
 }
   const saveEmailClient=(e)=>{
-   setClientEmail(e.target.value)
+   setClientEmail(e.target.value);
   }
   const saveNameCashier=(e)=>{
-   setCashierName(e.target.value)
+   setCashierName(e.target.value);
+
 }
 const saveAddressCashier=(e)=>{
-setCashierAddress(e.target.value)
+setCashierAddress(e.target.value);
+
 }
 const saveEmailCashier=(e)=>{
-setCashierEmail(e.target.value)
+setCashierEmail(e.target.value);
+
 }
 
 
-     /*********** */
+     /***** */
   
        const downloadPDF = async ()=>{
               
-        await axios.post('http://localhost:5000/InvoiceManu/downloadpdf',
+        await axios.post('http://localhost:5000/downloadpdf',
         {items : rows ,cashier: {name: cashierName , address: cashierAddress , email: cashierEmail },   
         client: {name: clientName , address: clientAddress , email: clientEmail } 
-        ,total :inputTOTALValue , numberOfInvoice: numberOfInvoice , taxe: inputTaxeValue , discount: inputDiscountValue})
+        ,total :inputTOTALValue , numberOfInvoice: numberOfInvoice , taxe: inputTaxeValue ,
+         discount: inputDiscountValue, currency:currencySelected  })
 
         .then(response =>{
           console.log('res post invoice : ',response);
              setinvoicepdf(response.data.invoice);
              console.log(response.data.invoice);
           //   easyinvoice.createInvoice(response.data.invoice, function (result) {
-               easyinvoice.download('myInvoice.pdf', response.data.invoice);
+               easyinvoice.download('invoiceN°'+numberOfInvoice, response.data.invoice);
                //	you can download like this as well:
                //	easyinvoice.download();
                //	easyinvoice.download('myInvoice.pdf');   
@@ -166,16 +176,35 @@ setCashierEmail(e.target.value)
         })
         .catch(err=>{
            console.error(err);
-        })
-             
+        })     
        }
 
+       const previewPDF = async ()=>{
+              
+         await axios.post('http://localhost:5000/downloadPDF',
+         {items : rows ,cashier: {name: cashierName , address: cashierAddress , email: cashierEmail },   
+         client: {name: clientName , address: clientAddress , email: clientEmail } 
+         ,total :inputTOTALValue , numberOfInvoice: numberOfInvoice , taxe: inputTaxeValue ,
+          discount: inputDiscountValue, currency:currencySelected })
+ 
+         .then( async response =>{
+           console.log('res post invoice : ',response);
+              setinvoicepdf(response.data.invoice);
+              console.log(response.data.invoice);
+             // const result = await easyinvoice.createInvoice(data);
+              easyinvoice.render('pdf', response.data.invoice);
+                              
+         })
+         .catch(err=>{
+            console.error(err);
+         })     
+        }
 
    return (
       <div className="container">
          <div className="btns">
             <button id="sendEmail" type="submit">Send Email</button>
-            <button type="submit">View PDF</button>
+            <Link to='#pdf'><button type="submit" onClick={previewPDF} >View PDF</button></Link>
             <button id="download" type="submit" onClick={downloadPDF} >Download PDF</button>
          </div>
          <div className="invoice">
@@ -222,16 +251,16 @@ setCashierEmail(e.target.value)
                      {rows.map((row, index) => (
                         <tr key={index}>
                            <td id="item" >
-                              <input name="input1" value={row.input1} onChange={e => handleChange(e, index)} id="inputItem" type="text"></input>
+                              <input name="item" value={row.item} onChange={e => handleChange(e, index)} id="inputItem" type="text"></input>
                            </td>
                            <td id="unitCost">
-                              <input name="input2" value={row.input2} onChange={e => handleChange(e, index)} id="inpuUnitCost" type="number"></input>
+                              <input name="unitCost" value={row.unitCost} onChange={e => handleChange(e, index)} id="inpuUnitCost" type="number"></input>
                            </td>
                            <td id="quantity">
-                              <input name="input3" value={row.input3} onChange={e => handleChange(e, index)} id="inputQuantity" type="number"></input>
+                              <input name="quantity" value={row.quantity} onChange={e => handleChange(e, index)} id="inputQuantity" type="number"></input>
                            </td>
                            <td id="lineTotal">
-                              <input name="input4" value={row.input4?row.input4:0} onChange={e => handleChange(e, index)} id="inputLineTotal" type="number" disabled="disabled" ></input>
+                              <input name="lineTotal" value={row.lineTotal?row.lineTotal:0} onChange={e => handleChange(e, index)} id="inputLineTotal" type="number" disabled="disabled" ></input>
                            </td>
                            <td id="remove">
                               <button id="deleteRow" onClick={()=>handleDeleteRow(index)} > <img src="/images/remove-icone.png" alt="" width='10px' ></img> </button>
@@ -244,13 +273,29 @@ setCashierEmail(e.target.value)
             </div>
 
             <div className="total">
+            <div className="devise">
+             <select id="selectdevise" name="selectdevise" onChange={handleSelectCurrency}>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="MAD">MAD</option>
+                <option value="DZD">DZD</option>
+                <option value="TND">TND</option>
+                <option value="SAR">SAR</option>
+                <option value="USN">USN</option>
+             </select>
+             </div>
+               <div className="inputst">
                <p>Subtotal</p><input  name='subtotal'  type="number" onInput={(e)=>calqTOTAL(e)}  value={inputSubtotalValue}  placeholder="Subtotal" id="subtotal" disabled></input> <br></br>
                <p>Taxe</p><input name='taxe' type="number" onChange={(e)=>calqTOTAL(e)}  value={inputTaxeValue}  placeholder="Taxes" id="tax"></input><br></br>
                <p>Discount</p> <input name='discount' type="number" onChange={(e)=>calqTOTAL(e)} value={inputDiscountValue}  placeholder="Discount" id="discount"></input> <br></br>
                <p>Total</p>  <input  type="number"  value={inputTOTALValue}  placeholder="Total" id="total" disabled="disabled"></input>
             </div>
-
+            
+            </div>
+           
          </div>
+         <div className="invoice-preview-p">this is your invoice:</div>
+         <div id="pdf"></div>
       </div>
    )
 

@@ -11,7 +11,7 @@
 }
 
 .Navbar {
-  z-index: 10;
+  z-index: 11;
   position: fixed;
   width: 100%;
   height: 11%;
@@ -20,31 +20,31 @@
   align-items: center;
   border: white;
 }
-@media (max-width: 500px) {
-  .Navbar {
-    justify-content: space-between;
+
+.logo {
+  width: 10%;
+  height: 35px;
+}
+@media (max-width: 623px) {
+  .logo {
+    width: 20%;
+    height: 35px;
   }
 }
 
 #logoImg {
-  width: 150px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   position: relative;
-  top: 10px;
-  left: 10px;
+  top: 0;
+  left: 0;
   right: none;
   bottom: none;
 }
-@media (max-width: 665px) {
-  #logoImg {
-    width: 100px;
-    height: 30px;
-  }
-}
 
 .nav {
-  width: 400px;
-  height: 50px;
+  width: 35%;
+  height: 40%;
   position: relative;
   top: 0;
   left: 0;
@@ -54,18 +54,13 @@
   align-items: center;
   justify-content: start;
 }
-@media (max-width: 665px) {
+@media (max-width: 900px) {
   .nav {
-    top: 40px;
-    width: 800px;
+    width: 60%;
+    height: 40%;
   }
 }
-@media (max-width: 500px) {
-  .nav {
-    display: none;
-  }
-}
-@media (max-width: 500px) {
+@media (max-width: 623px) {
   .nav {
     display: none;
   }
@@ -75,22 +70,17 @@
   display: flex;
   list-style: none;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .nav ul li .same {
-  padding: 15px;
+  padding: 10px;
   font-family: "Ubuntu";
   font-weight: 500;
   cursor: pointer;
   color: white;
   transition: 0.3s;
   position: relative;
-}
-@media (max-width: 665px) {
-  .nav ul li .same {
-    padding: 5px;
-  }
 }
 
 .nav ul li .same:hover {
@@ -100,99 +90,114 @@
 
 .nav ul li .same::after {
   content: "";
-  position: absolute;
   width: 75%;
   height: 2px;
-  bottom: 5px;
+  position: absolute;
+  top: none;
   left: 10px;
+  right: none;
+  bottom: 5px;
   transform: scaleX(0);
   transform-origin: bottom right;
   transition: transform 0.2s ease-out;
   background-color: white;
 }
-@media (max-width: 700px) {
-  .nav ul li .same::after {
-    position: relative;
-  }
-}
 
 .nav ul li .same:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
+  width: 75%;
+  height: 2px;
+}
+
+.companyName {
+  position: relative;
+}
+.companyName:hover .company-options {
+  visibility: visible;
+}
+
+.company-options {
+  border-radius: 12px;
+  overflow: hidden;
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  left: -25%;
+  right: none;
+  bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
+  width: 200px;
+  background-color: #9f9ff3;
+}
+.company-options a {
+  text-decoration: none;
+  list-style: none;
+  width: 100%;
+  color: white;
+}
+.company-options div {
+  text-shadow: 2px 2px 10px black;
+  overflow: hidden;
+  width: 100%;
+  height: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 35px;
+  padding: 0% 4%;
+  border: 1px solid white;
+  border-radius: none;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: medium;
+  font-weight: 500;
+  font-style: normal;
+  transition: box-shadow 0.7s;
+}
+.company-options div:hover {
+  box-shadow: inset 200px 0 15px 15px #6060eb;
 }
 
 .sign {
   display: flex;
+  width: 20%;
+  height: 35px;
+  justify-content: space-between;
+}
+@media (max-width: 623px) {
+  .sign {
+    width: 40%;
+  }
 }
 
-.btnSignUp {
-  width: 100px;
-  height: 40px;
+.btnSignUp:hover, .sign .login:hover {
+  border: 1px solid #fc7d57;
+  color: #fc7d57;
+}
+
+.sign .login, .btnSignUp {
+  text-decoration: none;
   position: relative;
-  top: 0;
-  left: 0;
-  right: none;
-  bottom: none;
-  margin-right: 10px;
   border-radius: 5px;
-  background-color: white;
-  border: none;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: "Ubuntu";
-  font-weight: 500;
-  font-style: normal;
+  text-align: center;
   cursor: pointer;
   transition: 0.3s;
-}
-@media (max-width: 630px) {
-  .btnSignUp {
-    width: 70px;
-    height: 30px;
-  }
-}
-
-.btnSignUp:hover {
-  border: 2px solid #fc7d57;
-  color: #fc7d57;
-}
-
-.sign .login {
-  text-decoration: none;
-  width: 100px;
-  height: 40px;
-  position: relative;
-  top: 15px;
-  right: 10px;
-  padding: 5px;
+  align-items: center;
+  display: flex;
+  border: 1px solid white;
+  color: white;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: "Ubuntu";
   font-weight: 500;
   font-style: normal;
-  list-style: none;
-  color: white;
-  transition: 0.3s;
-}
-@media (max-width: 630px) {
-  .sign .login {
-    top: 15px;
-  }
+  width: 45%;
+  height: 35px;
 }
 
-.sign .login:hover {
-  color: #fc7d57;
-}
-
-.sign li {
-  list-style: none;
-}
-
-.wave, .wave2 {
-  position: absolute;
-  top: none;
-  left: 0;
-  right: none;
-  bottom: 0;
-  width: 100%;
-  height: 30px;
-  fill: #ffffff;
+.sign .login p, .sign .btnSignUp p {
+  margin: auto;
 }/*# sourceMappingURL=Navbar.css.map */

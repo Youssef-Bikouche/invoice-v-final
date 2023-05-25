@@ -1,0 +1,147 @@
+@import "./utilities/mixins";
+@import "./utilities/breakpoints";
+@import "./utilities/colors";
+
+.settings-container{
+ 
+  @include size(100%,100vh);
+  padding: 12% 10% 0 10%;
+  @include flex();
+  @include media("<tablet"){
+    padding: 5% 0 0 0;
+  }
+  .company-stats{
+    @include border(1px,gray,10px);
+    @include size(100%,25%);
+    padding: 1% 0;
+    margin: 2% 0%;
+    @include flex();
+    flex-direction: column;
+    @include media('<=tablet'){
+      .company-stats-pics{
+        img{
+          @include size(20px,20px)
+        }
+      }
+      .company-stats-numbers{
+        @include font(small)
+      }
+    }
+    .company-stats-pics{
+      @include size(100%,50%);
+      @include flex(space-around);
+      img{
+        @include size(35px,35px)
+      }
+    }
+    .company-stats-numbers{
+      @include size(100%,50%);
+      @include flex(space-around);
+
+    }
+  }
+  .company-settings{
+    background-color: #fff;
+    @include size(70%,100vh);
+    @include border(1px,gray,10px);
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    @include media('<=tablet'){
+        
+      @include size(100%,80%);
+    
+  }
+  .confirm-delete-account{
+    @include border(1px,gray,10px);
+    @include position(absolute,50%,50%);
+    @include size(40%,40%);
+    @include flex(space-evenly);
+    flex-direction: column;
+    background-color: #fff;
+    transform: translate(-40%,-50%);
+    input{
+      height: 20%;
+    }
+    div{
+      @include size(60%,25%);
+      @include flex(space-around);
+      button{
+        @include size(25%,50%);
+        @include flex();
+        cursor: pointer;
+        text-align: center;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        background-color: lighten($main,10%);
+        &:hover{
+          background-color: $main;
+        }
+      }
+    }
+  }
+  .update-message{
+    @include flex();
+    color: red;
+    @include font(large,520);
+  }
+    .company-settings-options{
+       @include size(100%,20%);
+       @include flex(space-evenly);
+       @include media("<=tablet"){
+        flex-direction: column;
+       }
+       button{
+        @include size(12%,50%);
+        @include flex();
+        text-align: center;
+        border: none;
+        color: white;
+        background-color: lighten($main,10%);
+        &:active{
+          background-color: $main;
+        }
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.4s;
+        @include media("<=tablet"){
+          @include size(25%,50%);
+          margin: 1%;
+         }
+       }
+       .setting-button-delete{
+        background-color: lighten(red,20%);
+        &:active{
+          background-color: red;
+        }
+       }
+       .setting-button-home{
+        background-color: lighten(#16aa54,15%);
+        &:active{
+          background-color: #16aa54;
+        }
+       }
+    }
+    h1{
+      text-align: center;
+    }
+    label{
+        @include font();
+        margin-bottom: 1%;
+    }
+    input{
+      @include size(80%,8%);
+      border-width: 0.3px;
+      border-radius: 10px;
+      padding: 1px 10px;
+      margin-bottom: 1%;
+      @include media('<=tablet'){
+        
+          @include size(100%,6%);
+        
+      }
+    }
+    
+  }
+}
