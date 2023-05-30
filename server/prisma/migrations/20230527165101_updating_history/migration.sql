@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "invoiceHISTORY" ALTER COLUMN "total" SET DATA TYPE TEXT;

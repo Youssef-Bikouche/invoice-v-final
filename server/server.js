@@ -2,8 +2,10 @@ const express= require('express');
 const cors=require('cors');
 const  fs=require('fs');
 const easyinvoice = require('easyinvoice');
-
+const multer = require('multer');
+const path = require('path');
 const { PrismaClient } = require('@prisma/client');
+const { Console } = require('console');
 //****************************************************** */
 const prisma=new PrismaClient()
 const app=new express();
@@ -30,59 +32,91 @@ app.post('/login',async (req,res)=>{
   })
   if(company){
     if(company.password === req.body.password){
-      res.json({"message": "found","id": company.id,"username": company.name})
+      res.json({"message": "found","id": company.id,"username": company.name,'fileLogo':company.fileLogo})
     }
   }
   else{
     res.json({"message": "invalid informations"})
   }
 })
-
-//*********************************************************** */
-app.post('/addCompany', async (req, res) => {
-  try {
-    const [name, email, phone] = await Promise.all([
-      prisma.company.findUnique({ where: { name: req.body.companyName } }),
-      prisma.company.findUnique({ where: { email: req.body.email } }),
-      prisma.company.findUnique({ where: { phone: req.body.phone } }),
-    ]);
-    if (name) {
-      res.json({ message: "company name already exist" });
-    } else if (email) {
-      res.json({ message: "email already exist" });
-    } else if (phone) {
-      res.json({ message: "phone number already exist" });
-    } else {
-      const company = await prisma.company.create({
-        data: {
-          name: req.body.companyName,
-          email: req.body.email,
-          address: req.body.address,
-          phone: req.body.phone,
-          password: req.body.password,
-        },
-      });
-      res.json({ message: "Created account successfully",created : true });
-    }
-  } catch (error) {
-    console.log(error);
-    res.json({ message: "failed, try later" });
+/*******TEST LOGO******** */
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    // Définissez le dossier de destination où le fichier sera stocké
+    cb(null, 'logos-companies/');
+  },
+  filename: function (req, file, cb) {
+    // Générez un nom de fichier unique pour éviter les conflits
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+     fileLogo = file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop();
+    cb(null, fileLogo);
+  
+ 
   }
+
 });
+const upload = multer({ storage: storage });
+/******** */
+//********************* */
+app.post('/logos', (req, res) => {
+  // const logoname = req.body.logoname;
+  // console.log('logoname :' , logoname)
+  // const imagePath = 'C:/Users/amarj/Desktop/invoice-v3-final/invoice-v-final/server/logos-companies/image-1685231461102-728933704.jpg';
+  // res.sendFile(imagePath);
+  const logoname = req.body.logoname;
+  console.log('logoname :', logoname);
+  
+  const imagePath = path.join(__dirname, 'logos-companies', logoname);
+     
+  fs.readFile(imagePath, (err, data) => {
+    if (err) {
+      console.error('Erreur lors de la lecture du fichier image :', err);
+      return res.status(500).send('Erreur lors de la lecture du fichier image');
+    }
 
+    const base64Image = Buffer.from(data).toString('base64');
+    const imageDataUrl = `data:image/jpeg;base64,${base64Image}`;
+
+    res.json({ imageDataUrl });
+  });
+});
 //*********************************************************** */
-app.post('/getPRODUCTS',async(req,res)=>{
-  try {
-    const products= await prisma.product.findMany({
-      where : {
-        companyId: req.body.id
-      }
-     })
-     res.json({'products': products})
-  } catch (error) {
-    console.log(error)
+app.post('/addCompany',  upload.single('image'),async (req, res) => {
+  console.log('fileLogo:',fileLogo);
+  console.log('req.file  : ',req.file);
+  console.log('req.body  : ',req.body);
+try {
+
+  const [name, email, phone] = await Promise.all([
+    prisma.company.findUnique({ where: { name: req.body.companyName } }),
+    prisma.company.findUnique({ where: { email: req.body.email } }),
+    prisma.company.findUnique({ where: { phone: req.body.phone } }),
+  ]); 
+  if (name) {
+    res.json({ message: "company name already exist" }); 
+  } else if (email) {
+    res.json({ message: "email already exist" });
+  } else if (phone) {
+    res.json({ message: "phone number already exist" });
+  } else {
+
+    const company = await prisma.company.create({ 
+      data: {
+        name: req.body.companyName,
+        email: req.body.email,
+        address: req.body.address,
+        phone: req.body.phone,
+        password: req.body.password, 
+        fileLogo
+      },
+    });
+    res.json({ message: "Created account successfully",created : true });
   }
-})
+} catch (error) {
+  console.log(error);
+  res.json({ message: "failed, try later" });
+}
+});
 
 //************************************* */
 /*********** */
@@ -128,7 +162,21 @@ console.log(error);
 
 })
 
+//********************* */
+app.post('/getPRODUCTS',async(req,res)=>{
+  try {
+    const products= await prisma.product.findMany({
+      where : {
+        companyId: req.body.id
+      }
+     })
+     res.json({'products': products})
+  } catch (error) {
+    console.log(error)
+  }
+})
 
+//************* */
 
 
 /*********** */
@@ -312,16 +360,11 @@ app.post('/downloadpdf', (req,res)=>{
   let {cashier} = req.body;
   let {discount} = req.body;
   let {numberOfInvoice} = req.body;
-   console.log('items  : ',items);
-   console.log('tax  : ', parseFloat(taxe));
-  //  console.log('total  : ',total);
-  //  console.log('client  : ',client);
-    console.log('client name : ',client.name);
-  //  console.log('cashier  : ',cashier);
-  //  console.log('cashier email : ',cashier.email);
-  //  console.log('invoice number : ',numberOfInvoice);
+  //  console.log('items  : ',items);
+  //  console.log('tax  : ', parseFloat(taxe));
+  // console.log('client name : ',client.name);
+  console.log(items);
   let products=[];
-   console.log('itelenht : ',items.length)
   items.forEach(itemx => {
       const { item ,unitCost , quantity, lineTotal} = itemx;
       products.push({
@@ -432,6 +475,209 @@ app.post('/downloadpdf', (req,res)=>{
 
 
   })
+
+app.post('/addINVOICE',async(req,res)=>{
+   const invoice=await prisma.invoiceHISTORY.create({
+    
+    data :{
+      invoiceNUMBER: req.body.invoiceNumber,
+      total: req.body.Total,
+      receiver: req.body.fullName,
+      receiverPhone: req.body.phoneCustomer,
+      companyName: req.body.companyName  
+    }
+   })
+   console.log(invoice)
+})
+
+app.get('/getINVOICES', async (req, res) => {
+  try {
+    const companyName = req.query.companyName;
+    const x=req.query.orderby;
+    console.log(x);
+    if (companyName) {
+      if(x.length > 0){
+        const invoices = await prisma.invoiceHISTORY.findMany({
+          where: {
+            companyName: companyName,
+          },
+          orderBy: {
+           [x] : 'desc',
+          }
+        });
+        res.json({ "invoices": invoices });
+      }
+      else{
+        const invoices = await prisma.invoiceHISTORY.findMany({
+          where: {
+            companyName: companyName,
+          },
+        });
+        res.json({ "invoices": invoices });
+      }    
+    }
+    
+      
+    
+   
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+app.put('/paymentUPDATE',async(req,res)=>{
+  try {
+    const update=await prisma.invoiceHISTORY.update({
+      where : {
+        id: req.body.id,
+      },
+      data: {
+         payed : req.body.status,
+      }
+    });
+    console.log(update)
+    res.json({message: true})
+  } catch (error) {
+    console.log(error)
+  }
+      
+      
+})
+app.delete('/clearHISTORY',async(req,res)=>{
+  console.log(req.body.companyName);
+  try {
+    const history=await prisma.invoiceHISTORY.deleteMany({
+      where : {
+        companyName: req.body.companyName,
+      }
+     })
+     console.log(history);
+     res.json({message: true})
+  } catch (error) {
+    console.log(error)
+  }
+   
+})
+
+app.delete('/deleteINVOICE',async(req,res)=>{
+  console.log(req.query.id)
+    try {
+      const invoice=await prisma.invoiceHISTORY.delete({
+        where:{
+             id: req.query.id,
+        }
+      })
+      res.json({message: true})
+    } catch (error) {
+        console.log(error);
+    }
+})
+app.post('/searchINVOICE',async(req,res)=>{
+  try {
+    const invoices=await prisma.invoiceHISTORY.findMany({  
+        where: {
+          companyName: req.body.companyName,
+          receiver: {
+            contains: req.body.term,
+            }
+          }
+    })
+    res.json({invoices : invoices})
+  } catch (error) {
+    console.log(error)
+  }
+})
+//********************* */
+app.post('/getCLIENTS',async(req,res)=>{
+  try {
+    const clients=await prisma.customer.findMany({
+      where :{
+        companyId : req.body.id,
+      }
+    })
+    res.json({"clients": clients});
+  } catch (error) {
+    console.log(error)
+  }
+})//******************** */
+app.post('/addClient', async(req,res)=>{
+  const {id,name,address,email,phone}=req.body;
+  try {
+  await prisma.customer.create({
+  data: {
+   fullname: name,
+   address:address,
+   email:email,
+   phone:phone,
+   companyId:id
+  }, 
+  });
+  
+  res.json({"message":"created"});
+  } catch (error) {
+  res.json({"message":error.meta.target});
+  console.log(error.meta.target);
+  }
+  
+  })
+//******************* */
+app.post('/editClient',async (req,res)=>{
+  const {id,newName,newEmail,newAddress,newPhone}=req.body;
+  try {
+   const updatedRecord = await prisma.customer.update({
+     where: {
+       // Specify the condition for the record you want to update
+       id: id,
+     },
+     data: {
+       // Specify the fields and their new values
+       fullname: newName,
+       address: newAddress,
+       email: newEmail,
+       phone:newPhone
+     },
+    });
+   res.json({"message":"updated"});
+  }catch (error) {
+    console.log(error.meta.target);
+    res.json({"message":error.meta.target});
+  }
+} )
+/******************* */
+  app.post('/deleteClient', async(req,res)=>{
+       try {
+        await prisma.customer.delete({
+          where :{
+            id: req.body.id,
+          }
+        })
+         res.json({"message": "deleted"})
+       } catch (error) {
+         console.log(error);
+       }
+       
+  })
+/********************* */
+
+app.post('/searchClient',async(req,res)=>{
+  const searchterm = req.body.term;
+  const companyId = req.body.companyID;
+  try {
+    const client = await prisma.customer.findMany({
+      where: {
+        companyId: companyId, 
+        fullname: {
+          contains: searchterm,
+          }
+        }
+      })
+      res.json({"client" : client}) 
+      console.log(client)
+    } catch (error) {
+      res.json(error)
+    }
+})
+/********************* */
 //**************************************************************** */
 app.listen('5000',()=>{
   console.log('listening to server on port 5000')
