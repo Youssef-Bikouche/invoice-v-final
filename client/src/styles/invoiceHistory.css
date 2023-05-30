@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+*
+* Testing
+*
+**/
+.invoice-history-table {
+  width: 100%;
+  padding: 10% 2%;
+}
+.invoice-history-table .input-table input {
+  width: 70%;
+  height: 40px;
+  padding: 0 2%;
+  border: 0.5px solid gray;
+  border-radius: 10px;
+}
+.invoice-history-table .clear-History {
+  border-radius: 6px;
+  background-color: red;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+@media (max-width: 768px) {
+  .invoice-history-table .clear-History {
+    position: relative;
+    top: 50px;
+    left: 70%;
+    right: none;
+    bottom: none;
+    margin-bottom: 60px;
+  }
+}
+.invoice-history-table .invoices-table {
+  width: 100%;
+  height: auto;
+}
+.invoice-history-table .invoices-table .invoices-table-thead {
+  height: 100px;
+  background-color: red;
+}
+.invoice-history-table .invoices-table .invoices-table-thead th {
+  padding: 12px 10px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  background-color: #f5f5f5;
+}
+.invoice-history-table .invoices-table .invoices-table-tbody tr {
+  background-color: #f9f9f9;
+}
+.invoice-history-table .invoices-table .invoices-table-tbody tr:hover {
+  background-color: #eaeaea;
+}
+.invoice-history-table .invoices-table .invoices-table-tbody tr td {
+  padding: 12px 10px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+.invoice-history-table .invoices-table .status-button {
+  padding: 6px 12px;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.invoice-history-table .invoices-table .status-button:hover {
+  opacity: 0.8;
+}
+.invoice-history-table .invoices-table .status-button.red {
+  background-color: #ff0000;
+}
+.invoice-history-table .invoices-table .status-button.green {
+  background-color: #00ff00;
+}
+.invoice-history-table .invoices-table .tr-input-clear th {
+  background-color: #e8e8f0;
+}/*# sourceMappingURL=invoiceHistory.css.map */

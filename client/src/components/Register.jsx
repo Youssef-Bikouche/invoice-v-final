@@ -6,6 +6,7 @@ import "../styles/Register.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const Register = () => {
   const [companyName, setcompanyName] = useState("");
   const [email, setemail] = useState("");
@@ -14,8 +15,19 @@ const Register = () => {
   const [password, setpassword] = useState("");
   const [confirmpassword, setconfirmpassword] = useState("");
   const [error, seterror] = useState("");
+  const [inputLogo , setInputLogo] = useState();
   const navigate=useNavigate('');
   const handleSubmit = async () => {
+    const formData = new FormData();
+    console.log('input logo submit :',inputLogo)
+    console.log('companyname :',companyName)
+       formData.append('image',inputLogo);
+       formData.append('companyName', companyName);
+       formData.append('email', email);
+       formData.append('phone', phone);
+       formData.append('address', address);
+       formData.append('password', password);
+      
     if (
       companyName.length <= 0 ||
       email.length <= 0 ||
@@ -29,13 +41,13 @@ const Register = () => {
         seterror("password is too short , try again");
       } else {
         if (password === confirmpassword) {
-          await axios
-            .post("http://localhost:5000/addCompany", {
-              companyName,
-              email,
-              phone,
-              address,
-              password,
+         
+          await axios.post("http://localhost:5000/addCompany", 
+              formData
+            , {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
             })
             .then((res) => {
               seterror(res.data.message);
@@ -45,12 +57,22 @@ const Register = () => {
               
             });
         } else {
-          seterror("Password doesnt match");
+          seterror("Password doesnt match"); 
         }
       }
     }
   };
+/******************** */
 
+ const handleInputLogo = async(e)=>{
+       console.log(e.target.files[0]);
+       setInputLogo(e.target.files[0])
+       console.log(inputLogo);
+ }
+   
+    
+
+/******************* */
   return (
     <div className="Register-container">
       <div className="left-side">
@@ -112,6 +134,12 @@ const Register = () => {
                 type="password"
                 onChange={(e) => setconfirmpassword(e.target.value)}
               />
+            </div>
+          </div>
+          <div className="logo-company" style={{width: "100%",display :"flex",justifyContent: "space-around",marginBottom: "20px"}}>
+            <div className="inputIcon">Upload you Logo</div>
+            <div className="input">
+              <input type="file"  onChange={(e)=>handleInputLogo(e)} name="image"/>
             </div>
           </div>
           <button onClick={() => handleSubmit()}>Submit</button>

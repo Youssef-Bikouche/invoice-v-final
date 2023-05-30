@@ -3,8 +3,28 @@ import { Link } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { getCompanyInfo } from './utilities/getCompany';
+import axios from 'axios';
 import '../styles/Navbar.css'
 const Navbar = () => {
+        const[ logoCompany , setlogoCompany] = useState();
+        const[ companyLogoName , setCompanyLogoName] = useState(sessionStorage.getItem('companyLogo'));
+       
+     const getLogo = ()=>{
+    
+         axios.post('http://localhost:5000/logos',{logoname:companyLogoName})
+         .then( res=>{
+            setlogoCompany(res.data.imageDataUrl);
+         })
+         .catch(err=>{
+           console.error(err);
+         })
+     }
+     useEffect(() => {
+          
+      getLogo();
+    }, []);
+
 
   const navigate=useNavigate();
   const [headerColor, setHeaderColor] = useState('#6060eb3f');
@@ -54,11 +74,15 @@ const Navbar = () => {
                 </ul>
             </div>
             {loggedIN ? (<>
-                  <div className='companyName'>{companyName} <span style={{fontSize: "small"}}> ▼ </span>
+                  <div className='companyName'>
+                    <div className='companyLOGONAME'><img className='logocompany' src={logoCompany}  />
+                    <div>{companyName}</div> <span style={{fontSize: "small",marginLeft: "4px"}}> ▼ </span></div>
+                    
                  
                   <div className='company-options'>
                      <Link to='/invoiceManu'><div>Create Manuel invoice <span>✍🏻</span></div></Link>
                      <Link to='/invoiceAuto'><div>Create Auto invoice <span>🚀</span></div></Link>
+                     <Link to='/InvoicesHistory'><div>invoice History <span>📜</span></div></Link>
                      <Link to='/Handleclients'><div>Manage clients <span>🤵</span></div></Link>
                      <Link to='/handleProducts'><div>Manage Products <span>🛒</span></div></Link>
                      <Link to='/settings'><div>Settings <span>⚙️</span></div></Link>

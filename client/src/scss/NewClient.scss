@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap");
+@import "./utilities/mixins";
+@import "./utilities/breakpoints";
+@import "./utilities/colors";
+
+
+.add-client-container{
+    position: relative;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    .backtoclient-div{
+         width:20px;
+         height:20px;
+         position: absolute;
+         top:15%;
+         left:5%; 
+         @include media('<800px'){
+            top:13%;
+            left:5%;  
+        }
+    }
+    .backtoclient-icon{
+        width:20px;
+        height:20px;
+   }
+}
+.add-client-form{
+    width: 60%;
+    height: max-content;
+    background-color: white;
+    border-radius: 10px;
+    @include media('<1080px'){
+        width: 90%;
+    }
+}
+.add-client-form .label-input-client{
+    display: flex;
+    justify-content:space-between;
+    height: 80px;
+    align-items: center;
+    padding: 1%;
+    flex-wrap: wrap;
+    @include media('<800px'){
+        width: 100%;
+        margin-bottom:20px;
+        
+    }
+.error-unique ,.error-empty{  
+    color: red;
+    margin-left:20%;
+    @include media('<800px'){
+        margin-left: 0;  
+    }
+}
+    input{
+        @include size(80%,70%);
+        border: none;
+        background-color: #e4e6e7;
+        border-radius: 5px;
+        font-size: 20px;
+         font-weight: 500;
+         padding-left: 2%;
+         @include media('<800px'){
+             width: 100%;
+             
+         }
+    }
+    label{
+         font-size: 20px;
+         font-weight: 500;
+         padding-left: 2%;
+         font-family: Ubuntu;
+    }
+  
+
+}
+.add-client-form .add-client-div{
+    text-align: center;
+  
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button{
+        width: 20%;
+        height: 50%;
+        border-radius:5px;
+        border: none;
+        font-weight: 800;
+        font-family: Ubuntu;
+        background-color:greenyellow;
+        @include media('<408px'){
+            width: 40%;
+            
+        }
+    }
+}

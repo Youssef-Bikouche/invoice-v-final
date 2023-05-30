@@ -31,7 +31,8 @@ const Login = () => {
             const encryptedValue = CryptoJS.AES.encrypt(token,CryptingKey).toString();
             sessionStorage.setItem('token',encryptedValue);
             sessionStorage.setItem('id',res.data.id);
-            sessionStorage.setItem('companyName',res.data.username)
+            sessionStorage.setItem('companyName',res.data.username);
+            sessionStorage.setItem('companyLogo',res.data.fileLogo)
             navigate("/InvoiceAuto",{state : {id : res.data.id}});
           } else {
             seterror(res.data.message);

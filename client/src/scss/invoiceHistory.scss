@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap");
+@import "./utilities/mixins";
+@import "./utilities/breakpoints";
+@import "./utilities/colors";
+
+.invoice-history-table {
+  width: 100%;
+  padding: 10% 2%;
+  
+  .input-table input {
+    @include size(70%, 40px);
+    padding: 0 2%;
+    @include border(0.5px, gray, 10px);
+  }
+
+  .clear-History {
+    border-radius: 6px;
+    background-color: red;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    @include media('<=tablet') {
+      @include position(relative, 50px, 70%);
+      margin-bottom: 60px;
+    }
+  }
+
+  .invoices-table {
+    @include size(100%, auto);
+    
+    .invoices-table-thead {
+      height: 100px;
+      background-color: red;
+
+      th {
+        padding: 12px 10px;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+        background-color: #f5f5f5;
+      }
+    }
+
+    .invoices-table-tbody {
+      tr {
+        background-color: #f9f9f9;
+
+        &:hover {
+          background-color: #eaeaea;
+        }
+
+        td {
+          padding: 12px 10px;
+          text-align: center;
+          border-bottom: 1px solid #ccc;
+        }
+      }
+    }
+
+    .status-button {
+      padding: 6px 12px;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &.red {
+        background-color: #ff0000;
+      }
+
+      &.green {
+        background-color: #00ff00;
+      }
+    }
+
+    .tr-input-clear {
+      th {
+        background-color: #e8e8f0;
+      }
+    }
+  }
+}

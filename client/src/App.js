@@ -9,6 +9,9 @@ import InvoiceManu from "./components/InvoiceManu";
 import HandleProducts from "./components/HandleProducts";
 import Settings from "./components/Settings";
 import NewProduct from "./components/NewProduct";
+import InvoicesHistory from "./components/InvoicesHistory";
+import HandleClients from "./components/HandleClients";
+import NewClient from "./components/NewClient";
 function App() {
   return (
     <Router>
@@ -85,6 +88,16 @@ function App() {
             </>
           }
         />
+         <Route
+          exact
+          path="/HandleClients"
+          element={
+            <>
+              <Navbar/>
+              <HandleClients/>
+            </>
+          }
+        />
 
         <Route
           exact
@@ -103,6 +116,26 @@ function App() {
             <>
               <Navbar/>
               <NewProduct/>
+            </>
+          }
+        />
+        <Route
+          exact
+          path="/InvoicesHistory"
+          element={
+            <>
+              <Navbar/>
+              <InvoicesHistory/>
+            </>
+          }
+        />
+        <Route
+          exact
+          path="/NewClient"
+          element={
+            <>
+              <Navbar/>
+              <NewClient/>
             </>
           }
         />

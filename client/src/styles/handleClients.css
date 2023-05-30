@@ -1,0 +1,262 @@
+/**
+*
+* Testing
+*
+**/
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Ubuntu:wght@300;400;500;700&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.all-handel-client {
+  position: relative;
+  top: 80px;
+  width: 100%;
+  height: 100vh;
+  max-height: max-content;
+}
+
+.container-table-client {
+  width: 90%;
+  margin: auto;
+}
+.container-table-client #divIsLoading {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  top: 100px;
+}
+.container-table-client #divIsLoading #isloading {
+  margin: auto;
+}
+
+.div-add-client {
+  height: 40px;
+  position: relative;
+}
+.div-add-client .btn-add-client {
+  position: absolute;
+  right: 5px;
+  height: 100%;
+  padding: 2px;
+  border-radius: 5px;
+  border: none;
+  background-color: #16e60f;
+  color: white;
+  font-weight: 900;
+}
+@media (max-width: 899px) {
+  .div-add-client .btn-add-client {
+    height: 70%;
+  }
+}
+
+.search-client {
+  height: 50px;
+  text-align: center;
+  margin-top: 10px;
+}
+.search-client input {
+  height: 100%;
+  width: 40%;
+  border-radius: 5px;
+  padding-left: 5px;
+  border: none;
+  outline: none;
+}
+@media (max-width: 899px) {
+  .search-client input {
+    width: 90%;
+    height: 70%;
+  }
+}
+
+.table-display-clients {
+  margin-top: 20px;
+  text-align: center;
+}
+.table-display-clients .client-message {
+  height: 100%;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: larger;
+  font-weight: 540;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+}
+.table-display-clients table {
+  margin: auto;
+  width: 80%;
+  border-collapse: collapse;
+}
+@media (max-width: 899px) {
+  .table-display-clients table {
+    width: 100%;
+  }
+}
+.table-display-clients table th {
+  background-color: #3b3452;
+  height: 40px;
+  color: white;
+}
+.table-display-clients table td {
+  border: 1px solid #5f86a8;
+  height: 50px;
+  max-height: max-content;
+}
+.table-display-clients table td button {
+  width: 60%;
+  border: none;
+  color: #ffffff;
+  padding: 5%;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+.table-display-clients table td button img {
+  width: 20px;
+  height: 20px;
+}
+.table-display-clients table td button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.edit-client-pop {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  background-color: #e8e8f0;
+  width: 80%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px black;
+}
+@media (max-width: 599px) {
+  .edit-client-pop {
+    width: 80%;
+  }
+}
+.edit-client-pop .ErrorMessageUnique, .edit-client-pop .error-empty {
+  color: red;
+  padding: 2px 5px;
+  margin-bottom: 5px;
+}
+
+.edit-client-pop #name, .edit-client-pop #email, .edit-client-pop #address, .edit-client-pop #phone {
+  width: 90%;
+  height: 35px;
+  text-align: start;
+  border: none;
+  outline: none;
+  font-family: Ubuntu;
+  font-weight: 900;
+  font-size: 16px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.div-edit-client-btn {
+  text-align: center;
+}
+.div-edit-client-btn #edit-client-btn {
+  width: 20%;
+  height: 40px;
+  margin-top: 20px;
+  border-radius: 5px;
+  border: none;
+  font-family: Ubuntu;
+  font-size: 20px;
+  background-color: rgba(96, 96, 235, 0.8156862745);
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.edit-client-pop #edit-client-btn:hover {
+  background-color: #6060eb;
+}
+
+.edit-client-pop .edit-client-p-text {
+  margin-top: 20px;
+  font-family: Ubuntu;
+  text-shadow: 3px 3px 15px black;
+  text-align: center;
+}
+
+.close-client-pop-edit {
+  width: 30px;
+  height: 30px;
+  font-weight: 900;
+  font-size: 25px;
+  z-index: 6;
+  position: absolute;
+  cursor: pointer;
+  right: 6px;
+  top: 2px;
+  color: #ff2a2a;
+  text-shadow: 1px 1px 15px black;
+}
+
+/**/
+.popDeleteClient {
+  height: auto;
+  width: 500px;
+  position: absolute;
+  background-color: rgba(163, 158, 158, 0.997);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+}
+@media (max-width: 768px) {
+  .popDeleteClient {
+    width: 80%;
+    height: auto;
+    padding: 1%;
+    text-align: center;
+  }
+}
+
+.popDeleteClient h2 {
+  margin: 40px 0;
+}
+
+.delete-client-options {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.delete-client-options button {
+  background-color: rgb(255, 131, 131);
+  color: rgb(255, 255, 255);
+  width: 25%;
+  height: 30px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-client-options button:hover {
+  background-color: red;
+  color: white;
+}
+
+.close-pop-delete {
+  position: absolute;
+  cursor: pointer;
+  right: 6px;
+  top: 2px;
+  color: red;
+}
+
+/***//*# sourceMappingURL=handleClients.css.map */

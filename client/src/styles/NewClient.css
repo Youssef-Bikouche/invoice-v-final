@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+*
+* Testing
+*
+**/
+.add-client-container {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+.add-client-container .backtoclient-div {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 15%;
+  left: 5%;
+}
+@media (max-width: 799px) {
+  .add-client-container .backtoclient-div {
+    top: 13%;
+    left: 5%;
+  }
+}
+.add-client-container .backtoclient-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.add-client-form {
+  width: 60%;
+  height: max-content;
+  background-color: white;
+  border-radius: 10px;
+}
+@media (max-width: 1079px) {
+  .add-client-form {
+    width: 90%;
+  }
+}
+
+.add-client-form .label-input-client {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  align-items: center;
+  padding: 1%;
+  flex-wrap: wrap;
+}
+@media (max-width: 799px) {
+  .add-client-form .label-input-client {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+.add-client-form .label-input-client .error-unique, .add-client-form .label-input-client .error-empty {
+  color: red;
+  margin-left: 20%;
+}
+@media (max-width: 799px) {
+  .add-client-form .label-input-client .error-unique, .add-client-form .label-input-client .error-empty {
+    margin-left: 0;
+  }
+}
+.add-client-form .label-input-client input {
+  width: 80%;
+  height: 70%;
+  border: none;
+  background-color: #e4e6e7;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 2%;
+}
+@media (max-width: 799px) {
+  .add-client-form .label-input-client input {
+    width: 100%;
+  }
+}
+.add-client-form .label-input-client label {
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 2%;
+  font-family: Ubuntu;
+}
+
+.add-client-form .add-client-div {
+  text-align: center;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-client-form .add-client-div button {
+  width: 20%;
+  height: 50%;
+  border-radius: 5px;
+  border: none;
+  font-weight: 800;
+  font-family: Ubuntu;
+  background-color: greenyellow;
+}
+@media (max-width: 407px) {
+  .add-client-form .add-client-div button {
+    width: 40%;
+  }
+}/*# sourceMappingURL=NewClient.css.map */

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { clearSESSION } from './utilities/clearSESSION';
+import moment from 'moment';
 
 const Settings = () => {
   const navigate=useNavigate('');
@@ -45,20 +46,23 @@ const Settings = () => {
   };
 
   const updateINFOS = async () => {
-    await axios.post('http://localhost:5000/updateCompanyInfo', {
-      id,
-      name: company.name, 
-      email: company.email, 
-      address: company.address, 
-      phone: company.phone, 
-    })
-      .then((res) => {
-        console.log(res.data.message);
-        setupdateMessage(res.data.message);
-          setTimeout(() => {
-            setupdateMessage('');
-          }, 2000);
-      });
+    if(company.name.length > 0 && company.email.length > 0 && company.address.length > 0 && company.phone.length > 0){
+      await axios.post('http://localhost:5000/updateCompanyInfo', {
+        id,
+        name: company.name, 
+        email: company.email, 
+        address: company.address, 
+        phone: company.phone, 
+      })
+        .then((res) => {
+          console.log(res.data.message);
+          setupdateMessage(res.data.message);
+            setTimeout(() => {
+              setupdateMessage('');
+            }, 2000);
+        });
+    }
+  
   };
    const deleteACCOUNT=async()=>{
     await axios.post('http://localhost:5000/deleteACCOUNT',{
@@ -88,6 +92,47 @@ const Settings = () => {
     
    })
    }
+  //************************************* */
+   const [nameEMPTY,setnameEMPTY]=useState(false)
+   const handleCompanyName= (e)=>{
+    setCompany({ ...company, name: e.target.value });
+    if(e.target.value ===''){
+       setnameEMPTY(true);
+    }
+    else{
+       setnameEMPTY(false);
+    }
+}
+const [addressEMPTY,setaddressEMPTY]=useState(false)
+   const handleCompanyAddress= (e)=>{
+    setCompany({ ...company, address: e.target.value });
+    if(e.target.value ===''){
+       setaddressEMPTY(true);
+    }
+    else{
+       setaddressEMPTY(false);
+    }
+}
+const [emailEMPTY,setemailEMPTY]=useState(false)
+   const handleCompanyEmail= (e)=>{
+    setCompany({ ...company, email: e.target.value });
+    if(e.target.value ===''){
+       setemailEMPTY(true);
+    }
+    else{
+       setemailEMPTY(false);
+    }
+}
+const [phoneEMPTY,setphoneEMPTY]=useState(false)
+   const handleCompanyPhone= (e)=>{
+    setCompany({ ...company, phone: e.target.value });
+    if(e.target.value ===''){
+       setphoneEMPTY(true);
+    }
+    else{
+       setphoneEMPTY(false);
+    }
+}
   useEffect(() => {
     getDATA();
     countSTATS();
@@ -115,17 +160,21 @@ const Settings = () => {
              
               <h1>Settings </h1>
               <label htmlFor="">Company Name:</label>
-              <input type='text' value={company.name} onChange={(e) => setCompany({ ...company, name: e.target.value })} />
+              <input type='text' value={company.name} onChange={(e) =>  handleCompanyName(e)} />
+              {nameEMPTY ? (<><p className='empty-message'>name can't be empty</p></>):<></>}
               <label htmlFor="">Company email:</label>
-              <input type='text' value={company.email} onChange={(e) => setCompany({ ...company, email: e.target.value })} />
+              <input type='text' value={company.email} onChange={(e) => handleCompanyEmail(e)} />
+              {emailEMPTY ? (<><p className='empty-message'>email can't be empty</p></>):<></>}
               <label htmlFor="">Company address:</label>
-              <input type='text' value={company.address} onChange={(e) => setCompany({ ...company, address: e.target.value })} />
+              <input type='text' value={company.address} onChange={(e) => handleCompanyAddress(e)} />
+              {addressEMPTY ? (<><p className='empty-message'>address can't be empty</p></>):<></>}
               <label htmlFor="">Company Phone:</label>
-              <input type='text' value={company.phone} onChange={(e) => setCompany({ ...company, phone: e.target.value })} />
+              <input type='text' value={company.phone} onChange={(e) => handleCompanyPhone(e)} />
+              {phoneEMPTY ? (<><p className='empty-message'>phone can't be empty</p></>):<></>}
               <label htmlFor="">Date of creation :</label>
-              <input type='text' value={company.createdAt} disabled />
+              <input type='text' value={moment(company.createdAt).format('DD-MM-YYYY')} disabled />
               <label htmlFor="">Last update:</label>
-              <input type='text' value={company.updatedAt} disabled />
+              <input type='text' value={moment(company.updatedAt).format('DD-MM-YYYY')} disabled />
               <div className='company-stats'>
                 <h3 style={{margin: "4px 0"}}>Account Stats</h3>
                 <div className='company-stats-pics'>

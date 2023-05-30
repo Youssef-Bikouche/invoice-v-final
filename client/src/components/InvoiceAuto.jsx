@@ -12,7 +12,7 @@ import axios from 'axios';
 import easyinvoice from 'easyinvoice';
 
 const InvoiceAuto = () => {
-  const [rows, setRows] = useState([{item: '',unitCost: 0,quantity: '',lineTotal: 0}]); 
+  const [rows, setRows] = useState([{item: '',unitCost: '',quantity: '',lineTotal: ''}]); 
   const [subTOTAL,setsubTOTAL]=useState(0);
   const currentDate = new Date();
   const formattedDate = format(currentDate, 'dd/MM/yyyy');
@@ -20,6 +20,7 @@ const InvoiceAuto = () => {
   const [verified,setverified]=useState(false);
   const [invoicepdf,setinvoicepdf]=useState('');
   const [currencySelected,setCurrencySelected]=useState('');
+
 //************************************************************************************** */
   useEffect(()=>{
     checkLogin(setverified,navigate);
@@ -104,6 +105,7 @@ const [invoiceNumber,setInvoiceNumber]=useState();
 //*************************************************************************************************** */
 
 const [emailCustomer,setemailCustomer]=useState('');
+const [phoneCustomer,setphoneCustomer]=useState('');
 const [addressCustomer,setaddressCustomer]=useState('');
 const [fullName,setFullName]=useState('')
 const handleCustomerInfo=(e)=>{
@@ -112,7 +114,8 @@ const handleCustomerInfo=(e)=>{
       setemailCustomer(SelectedCustomer?.email || '');
       setaddressCustomer(SelectedCustomer?.address || '');
       setFullName(SelectedCustomer?.fullname || '');
-      console.log(SelectedCustomer)
+      setphoneCustomer(SelectedCustomer?.phone)
+      // console.log(SelectedCustomer)
 }
 
 //*************************************************************************************************** */
@@ -164,8 +167,24 @@ useEffect(()=>{
 //       console.log("Total",Total);
       
 // }
+const handleinvoiceHISTORY=async()=>{
+  console.log("customer name",fullName)
+  console.log("number",invoiceNumber)
+   console.log("Total",Total);
+   console.log("email",phoneCustomer)
+   await axios.post('http://localhost:5000/addINVOICE',{
+    id: company.id,
+    invoiceNumber,
+    fullName,
+    Total,
+    phoneCustomer,
+    companyName: company.name,
+   }).then(res=>{
+    console.log(res.data.message)
+   })
+} 
 const downloadPDF = async ()=>{
-              
+  console.log(rows)
   await axios.post('http://localhost:5000/downloadpdf',
   {items : rows ,cashier: {name: company.name , address: company.address , email: company.email },   
   client: {name: fullName , address: addressCustomer , email: emailCustomer } 
@@ -175,8 +194,13 @@ const downloadPDF = async ()=>{
     console.log('res post invoice : ',response);
        setinvoicepdf(response.data.invoice);
        console.log(response.data.invoice);
+       if(response.data.invoice){
+        handleinvoiceHISTORY();
+        
+       }
        easyinvoice.download('myInvoice.pdf', response.data.invoice);
-         
+       
+      
   })
   .catch(err=>{
      console.error(err);
@@ -211,14 +235,10 @@ const downloadPDF = async ()=>{
   {verified ? 
   (<>
     <div className="container-invoice-auto">
-    {/* <div className="warning">
-      <img className="close" src={remove} alt="" />
-       You must fill out all the information
-    </div> */}
-    <div className="btns-auto">
-      <button id="Preview" type="submit"onClick={()=>previewPDF()}>Preview PDF</button>
-      <button id="download" type="submit" onClick={()=>downloadPDF()} >Download PDF</button>
-    </div>
+      <div className="btns-auto">
+        <button id="Preview" type="submit"onClick={()=>previewPDF()}>Preview PDF</button>
+        <button id="download" type="submit" onClick={()=>downloadPDF()} >Download PDF</button>
+      </div>
     <div className="invoice">
       <div className="general-info">
         <p>Creation date: <span id="creationDate">{formattedDate}</span></p>
@@ -290,7 +310,7 @@ const downloadPDF = async ()=>{
                    <select name="" id="" onChange={(e)=>handleProductPrice(e,index)}>
                     <option value="">select a product</option>
                       {products.map((product,index)=>(
-                        <option key={index} value={product.price}>{product.name}</option>
+                        <option key={index}  value={product.price}>{product.name}</option>
                       ))}
                    </select>
                   </>):(<><input

@@ -10,6 +10,12 @@
   @include media("<tablet"){
     padding: 5% 0 0 0;
   }
+  .empty-message{
+    color: red;
+    padding: 0;
+    margin-top: -10px;
+    @include font(large,540)
+  }
   .company-stats{
     @include border(1px,gray,10px);
     @include size(100%,25%);

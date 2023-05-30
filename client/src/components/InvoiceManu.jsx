@@ -156,7 +156,6 @@ setCashierEmail(e.target.value);
      /***** */
   
        const downloadPDF = async ()=>{
-              
         await axios.post('http://localhost:5000/downloadpdf',
         {items : rows ,cashier: {name: cashierName , address: cashierAddress , email: cashierEmail },   
         client: {name: clientName , address: clientAddress , email: clientEmail } 
@@ -180,7 +179,6 @@ setCashierEmail(e.target.value);
        }
 
        const previewPDF = async ()=>{
-              
          await axios.post('http://localhost:5000/downloadPDF',
          {items : rows ,cashier: {name: cashierName , address: cashierAddress , email: cashierEmail },   
          client: {name: clientName , address: clientAddress , email: clientEmail } 
@@ -203,7 +201,7 @@ setCashierEmail(e.target.value);
    return (
       <div className="container">
          <div className="btns">
-            <button id="sendEmail" type="submit">Send Email</button>
+            {/* <button id="sendEmail" type="submit">Send Email</button> */}
             <Link to='#pdf'><button type="submit" onClick={previewPDF} >View PDF</button></Link>
             <button id="download" type="submit" onClick={downloadPDF} >Download PDF</button>
          </div>
