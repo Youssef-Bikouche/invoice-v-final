@@ -36,7 +36,7 @@ const Login = () => {
             navigate("/InvoiceAuto",{state : {id : res.data.id}});
           } else {
             seterror(res.data.message);
-            console.log(res)
+          
           }
         });
     } else {

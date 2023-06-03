@@ -69,7 +69,7 @@ const Navbar = () => {
                 <ul>
                     <li className=''><Link to="/Home" className='same '>Home</Link> </li>
                     <li className=''><Link to="/Home#ourServices" className='same '>Services</Link> </li>
-                    <li className=''><Link to="" className='same '>Contact</Link> </li>
+                    <li className=''><Link to="/Contact" className='same '>Contact</Link> </li>
                     <li className=''><Link to="" className='same '>About us</Link> </li>
                 </ul>
             </div>

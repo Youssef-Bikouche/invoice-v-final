@@ -56,20 +56,18 @@ const HandleProducts = () => {
        setproductID(id);
 
  }
- const DeleteProduct=async(id)=>{
-     console.log(id);
+ const DeleteProduct=async(ProductID)=>{
      try {
       await axios.post('http://localhost:5000/deletePRODUCT',{
-        id,
+        ProductID,
       }).then(res=>{
-        console.log(res);
         if(res.data.message ==="deleted"){
           setpopDeleteProduct(false);
           getPRODUCTS(id,setPRODUCTS,setIsloading);
         }
       })
      } catch (error) {
-      
+      console.log(error)
      }
  }
  /************** */

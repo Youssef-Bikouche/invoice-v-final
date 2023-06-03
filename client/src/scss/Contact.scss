@@ -1,0 +1,102 @@
+@import "./utilities/breakpoints";
+@import "./utilities/mixins";
+@import "./utilities/colors";
+
+.contact-us{
+  padding: 10% 2% 10% 2%;
+  @include flex(space-between);
+  .contact-left{
+    @include size(50%,auto);
+    @include flex();
+    @include media("<=tablet"){
+      display: none
+    }
+  }
+  .contact-right{
+    @include size(45%,auto);
+    @include flex();
+    @include media("<=tablet"){
+      @include size(100%,auto);
+      padding-top: 20%;
+    }
+  }
+  
+  form{
+    background-color: #fff;
+    color: black;
+    animation: rotate 15s infinite linear;
+    padding: 3% 0% 0% 0%;
+    @include size(85%,480px);
+    @include border(1px,rgb(32, 32, 32),8px);
+    @include flex();
+    flex-direction: column;
+    position: relative;
+    h2{
+      @include position(absolute,$t:15px,$l:40%)
+    }
+    input,textarea{
+      @include size(80%,8%);
+      margin-bottom: 10px;
+      border-radius: 10px;
+      border-width: 0.5px;
+      padding: 12px;
+    }
+    textarea{
+      max-width: 80%;
+      min-width: 80%;
+      height: 16%;
+    }
+    label{
+      margin: 10px;
+      @include font();
+    }
+    .submit-contact{
+      @include size(100px,40px);
+      margin: 10px;
+      color: white;
+      background-color: lighten($main,10%);
+      padding: 1% 2%;
+      border: none;
+      border-radius: 6px;
+      &:hover{
+        background-color: $main;
+      }
+    }
+   
+  }
+}
+@keyframes rotate {
+  0% {
+    box-shadow: 4px 0px 15px $main;
+  }
+  10% {
+    box-shadow: 0px -4px 15px lighten($color: $main, $amount: 1%);
+  }
+  20% {
+    box-shadow: -4px 0px 0px lighten($color: $main, $amount: 2%);
+  }
+  30% {
+    box-shadow: 0px 4px 15px lighten($color: $main, $amount: 3%);
+  }
+  40% {
+    box-shadow: 4px 0px 15px lighten($color: $main, $amount: 4%);
+  }
+  50% {
+    box-shadow: 0px -4px 0px lighten($color: $main, $amount: 4%);
+  }
+  60% {
+    box-shadow: -4px 0px 15px lighten($color: $main, $amount: 5%);
+  }
+  70% {
+    box-shadow: 0px 4px 15px lighten($color: $main, $amount: 6%);
+  }
+  80% {
+    box-shadow: 4px 0px 15px lighten($color: $main, $amount: 7%);
+  }
+  90% {
+    box-shadow: 0px -4px 15px lighten($color: $main, $amount: 8%);
+  }
+  100% {
+    box-shadow: -4px 0px 15px lighten($color: $main, $amount: 9%);
+  }
+}

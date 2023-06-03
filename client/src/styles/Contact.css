@@ -1,0 +1,134 @@
+/**
+*
+* Testing
+*
+**/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-us {
+  padding: 10% 2% 10% 2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.contact-us .contact-left {
+  width: 50%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .contact-us .contact-left {
+    display: none;
+  }
+}
+.contact-us .contact-right {
+  width: 45%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .contact-us .contact-right {
+    width: 100%;
+    height: auto;
+    padding-top: 20%;
+  }
+}
+.contact-us form {
+  background-color: #fff;
+  color: black;
+  animation: rotate 15s infinite linear;
+  padding: 3% 0% 0% 0%;
+  width: 85%;
+  height: 480px;
+  border: 1px solid rgb(32, 32, 32);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+.contact-us form h2 {
+  position: absolute;
+  top: 15px;
+  left: 40%;
+  right: none;
+  bottom: none;
+}
+.contact-us form input, .contact-us form textarea {
+  width: 80%;
+  height: 8%;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border-width: 0.5px;
+  padding: 12px;
+}
+.contact-us form textarea {
+  max-width: 80%;
+  min-width: 80%;
+  height: 16%;
+}
+.contact-us form label {
+  margin: 10px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: large;
+  font-weight: 500;
+  font-style: normal;
+}
+.contact-us form .submit-contact {
+  width: 100px;
+  height: 40px;
+  margin: 10px;
+  color: white;
+  background-color: #8d8df1;
+  padding: 1% 2%;
+  border: none;
+  border-radius: 6px;
+}
+.contact-us form .submit-contact:hover {
+  background-color: #6060eb;
+}
+
+@keyframes rotate {
+  0% {
+    box-shadow: 4px 0px 15px #6060eb;
+  }
+  10% {
+    box-shadow: 0px -4px 15px #6565ec;
+  }
+  20% {
+    box-shadow: -4px 0px 0px #6969ec;
+  }
+  30% {
+    box-shadow: 0px 4px 15px #6e6eed;
+  }
+  40% {
+    box-shadow: 4px 0px 15px #7272ed;
+  }
+  50% {
+    box-shadow: 0px -4px 0px #7272ed;
+  }
+  60% {
+    box-shadow: -4px 0px 15px #7777ee;
+  }
+  70% {
+    box-shadow: 0px 4px 15px #7b7bee;
+  }
+  80% {
+    box-shadow: 4px 0px 15px #8080ef;
+  }
+  90% {
+    box-shadow: 0px -4px 15px #8484f0;
+  }
+  100% {
+    box-shadow: -4px 0px 15px #8989f0;
+  }
+}/*# sourceMappingURL=Contact.css.map */

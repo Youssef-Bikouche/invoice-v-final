@@ -1,11 +1,15 @@
-const express= require('express');
+const express=require('express');
 const cors=require('cors');
 const  fs=require('fs');
 const easyinvoice = require('easyinvoice');
 const multer = require('multer');
 const path = require('path');
 const { PrismaClient } = require('@prisma/client');
-const { Console } = require('console');
+// const { Console } = require('console');
+const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey('your-sendgrid-api-key');
+
 //****************************************************** */
 const prisma=new PrismaClient()
 const app=new express();
@@ -186,7 +190,7 @@ app.post('/deletePRODUCT',async (req,res)=>{
   try {
     await prisma.product.delete({
       where :{
-        id: req.body.id,
+        id: req.body.ProductID,
       }
     })
      res.json({"message": "deleted"})
@@ -353,17 +357,19 @@ app.post('/deleteACCOUNT',async(req,res)=>{
 //******************************************************** */
 //********************************************************* */
 app.post('/downloadpdf', (req,res)=>{
+  const getCurrentDate=()=>{
+    let date=new Date();
+    let currentDATE=`${date.getDate()}-${date.getMonth() +1}-${date.getFullYear()}`;
+    return currentDATE ;
+}
   let {items} =  req.body;     
   let {total} =  req.body;
   let {taxe} =  req.body;
   let {client} = req.body;
   let {cashier} = req.body;
   let {discount} = req.body;
+  let {currency} = req.body
   let {numberOfInvoice} = req.body;
-  //  console.log('items  : ',items);
-  //  console.log('tax  : ', parseFloat(taxe));
-  // console.log('client name : ',client.name);
-  console.log(items);
   let products=[];
   items.forEach(itemx => {
       const { item ,unitCost , quantity, lineTotal} = itemx;
@@ -384,14 +390,14 @@ app.post('/downloadpdf', (req,res)=>{
             //  "template": fs.readFileSync('template.html', 'base64') // Must be base64 encoded html 
         },
         "images": {
-          logo: "https://public.easyinvoice.cloud/img/logo_en_original.png",
-         // background: fs.readFileSync('images/background.png', 'base64')
+          logo:cashier.fileLogo? fs.readFileSync('./logos-companies/'+cashier.fileLogo, 'base64'):null,
       },
         // Your own data
         "sender": {
-            "company":"company: "+cashier.name,
-            "address":"Email: "+cashier.email,
-            "zip":"Address: "+cashier.address,
+            "company": "Company: "+cashier.name,
+            "address": "Email: "+cashier.email,
+            "zip"    : "Address: "+cashier.address,
+            "country": "Company phone : "+cashier.phone,
             
             
             // "city": "Samplecountry",
@@ -402,9 +408,10 @@ app.post('/downloadpdf', (req,res)=>{
         // Your recipient
         "client": {
            // "custom1" : "client",
-            "company": "client: "+client.name,
-            "address": "Address: "+client.address,
-            "zip": "Email: "+client.email,
+            "company": "Client : "+client.name,
+            "address": "Address : "+client.address,
+            "zip"    : "Email: "+client.email,
+            "country": "Client phone : "+client.phone,
             // "custom1": "custom value 1",
             // "custom2": "custom value 2",
             // "custom3": "custom value 3"
@@ -413,9 +420,9 @@ app.post('/downloadpdf', (req,res)=>{
             // Invoice number
             "number":numberOfInvoice,
             // Invoice data
-            "date": "12-12-2021",
+            "date": getCurrentDate(),
             // Invoice due date
-            "due-date": "31-12-2021"
+            "due-date": "---"
         },
         // The products you would like to see on your invoice
         // Total values are being calculated automatically
@@ -424,11 +431,11 @@ app.post('/downloadpdf', (req,res)=>{
         //  "discount" : 20,
    
         // The message you would like to display on the bottom of your invoice
-        "bottom-notice": `Please note that the total after applying ${discount}% discount  is ${total}` ,
+        "bottom-notice": `Please note that the total after applying ${discount}% discount  is ${total} ${currency}` ,
         
         // Settings to customize your invoice
         "settings": {
-            "currency": "USD", // See documentation 'Locales and Currency' for more info. Leave empty for no currency.
+            "currency": currency, // See documentation 'Locales and Currency' for more info. Leave empty for no currency.
             "locale": "nl-NL", // Defaults to en-US, used for number formatting (See documentation 'Locales and Currency')        
             "margin-top": 25, // Defaults to '25'
             "margin-right": 25, // Defaults to '25'
@@ -445,7 +452,7 @@ app.post('/downloadpdf', (req,res)=>{
         //     "invoice": "FACTUUR",  // Default to 'INVOICE'
         //     "number": "Nummer", // Defaults to 'Number'
         //     "date": "Datum", // Default to 'Date'
-        //     "due-date": "Verloopdatum", // Defaults to 'Due Date'
+            // "due-date": " ", // Defaults to 'Due Date'
         //     "subtotal": "Subtotaal", // Defaults to 'Subtotal'
         //     "products": "Producten", // Defaults to 'Products'
         //     "quantity": "Aantal", // Default to 'Quantity'
@@ -460,7 +467,6 @@ app.post('/downloadpdf', (req,res)=>{
       easyinvoice.createInvoice(data, async function (result) {
           //The response will contain a base64 encoded PDF file
          // console.log('PDF base64 string: ', result.pdf);
-               fs.writeFileSync("invoice.pdf", result.pdf, 'base64');
                res.json({'invoice':result.pdf});
           });
     } catch (error) {
@@ -478,7 +484,6 @@ app.post('/downloadpdf', (req,res)=>{
 
 app.post('/addINVOICE',async(req,res)=>{
    const invoice=await prisma.invoiceHISTORY.create({
-    
     data :{
       invoiceNUMBER: req.body.invoiceNumber,
       total: req.body.Total,
@@ -678,6 +683,50 @@ app.post('/searchClient',async(req,res)=>{
     }
 })
 /********************* */
+const transporter = nodemailer.createTransport({
+  // Specify your email service provider and credentials here
+  service: 'Gmail',
+  auth: {
+    user: 'mehdi.stage.youssef@gmail.com',
+    pass: 'stage@123'
+  }
+});
+app.post('/send-email', async(req, res) => {
+  const { fullName, email, subject} = req.body;
+  // const msg = {
+  //   to: 'youssef@gmail.com',
+  //   from: email,
+  //   subject: subject,
+  //   text: `From: ${fullName}\n\nEmail: ${email}\n\nSubject: ${subject}`,
+  // };
+
+  // try {
+  //   await sgMail.send(msg);
+  //   console.log('Email sent successfully');
+  //   res.send('Email sent successfully');
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).send('Error sending email');
+  // }
+  // Create email message
+  // const mailOptions = {
+  //   from: email,
+  //   to: 'youssefkun64@example.com',
+  //   subject: subject,
+  //   text: `From: ${fullName}\n\n${subject}`
+  // };
+
+  // // Send the email
+  // transporter.sendMail(mailOptions, (error, info) => {
+  //   if (error) {
+  //     console.log(error);
+  //     res.status(500).send('Error sending email');
+  //   } else {
+  //     console.log('Email sent: ' + info.response);
+  //     res.send('Email sent successfully');
+  //   }
+  // })
+})
 //**************************************************************** */
 app.listen('5000',()=>{
   console.log('listening to server on port 5000')

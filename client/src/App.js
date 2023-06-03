@@ -12,6 +12,7 @@ import NewProduct from "./components/NewProduct";
 import InvoicesHistory from "./components/InvoicesHistory";
 import HandleClients from "./components/HandleClients";
 import NewClient from "./components/NewClient";
+import Contact from "./components/Contact";
 function App() {
   return (
     <Router>
@@ -136,6 +137,16 @@ function App() {
             <>
               <Navbar/>
               <NewClient/>
+            </>
+          }
+        />
+         <Route
+          exact
+          path="/Contact"
+          element={
+            <>
+              <Navbar/>
+              <Contact/>
             </>
           }
         />

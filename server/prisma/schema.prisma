@@ -17,9 +17,9 @@ model company {
   address        String
   phone          String           @unique
   password       String           
-  customer       customer[]
-  product        product[]
-  fileLogo      String?
+  customer       customer[]       
+  product        product[]        
+  fileLogo       String?
   invoiceHISTORY invoiceHISTORY[]
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
@@ -39,7 +39,7 @@ model customer {
 
 model product {
   id          String   @id @default(uuid())
-  name        String   @unique
+  name        String   
   price       Float
   description String?
   company     company? @relation(fields: [companyId], references: [id])

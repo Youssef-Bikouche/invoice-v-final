@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { format } from 'date-fns';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import {Link} from 'react-router-dom'; 
 import easyinvoice from 'easyinvoice';
 
 const InvoiceAuto = () => {
@@ -20,6 +21,7 @@ const InvoiceAuto = () => {
   const [verified,setverified]=useState(false);
   const [invoicepdf,setinvoicepdf]=useState('');
   const [currencySelected,setCurrencySelected]=useState('');
+  const [isLoadingInvoice,setisLoadingInvoice]=useState(false)
 
 //************************************************************************************** */
   useEffect(()=>{
@@ -27,7 +29,7 @@ const InvoiceAuto = () => {
   },[])
 
 //*************************************************************************************** */
-const [invoiceNumber,setInvoiceNumber]=useState();
+const [invoiceNumber,setInvoiceNumber]=useState('');
   
 //********************************************************************************************** */
   const [clients,setclients]=useState('')
@@ -35,11 +37,11 @@ const [invoiceNumber,setInvoiceNumber]=useState();
   const [products,setproducts]=useState('');
 
   //********************************************************************************************** */
-  const handleLogout=()=>{
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('id')
-        navigate('/Home');
-  }
+  // const handleLogout=()=>{
+  //       sessionStorage.removeItem('token');
+  //       sessionStorage.removeItem('id')
+  //       navigate('/Home');
+  // }
   useEffect(()=>{
     const id=sessionStorage.getItem('id');
         getPRODUCTS(id,setproducts);
@@ -88,8 +90,11 @@ const [invoiceNumber,setInvoiceNumber]=useState();
 
 //********************************************************************************************** */
  const handleProductPrice=(e,index)=>{
+  const product= JSON.parse( e.target.value);
+
       const updatedRows = [...rows];
-      updatedRows[index] = { ...updatedRows[index], ['unitCost']: e.target.value };
+      updatedRows[index] = { ...updatedRows[index], ['unitCost']: product.price };
+      updatedRows[index] = { ...updatedRows[index], ['item']: product.name };
       if(updatedRows[index].quantity !== 0){
         setsubTOTAL(0);
         updatedRows[index].lineTotal= updatedRows[index].unitCost * updatedRows[index].quantity;
@@ -140,38 +145,9 @@ const handleDiscount = (x) => {
 useEffect(()=>{
    setTotal(caclulTax_Discount)
 },[Tax,Discount,subTOTAL])
+
 //*************************************************************************************************** */
-// const DownloadPDF=async()=>{
-//      console.log("email customer",emailCustomer);
-//      console.log("adresse customer",addressCustomer);
-//      console.log("customer name",fullName)
-//      console.log("***********************************************")
-
-//      console.log("company name",company.name)
-//      console.log("adresse company",company.address);
-//      console.log("customer email",company.email)
-//      console.log("***********************************************")
-//      console.log("time",formattedDate);
-//      console.log("number",invoiceNumber)
-
-//      console.log("***********************************************")
-
-//       rows.forEach(row=>{
-//         console.log(row.item,row.unitCost,row.quantity,row.lineTotal)
-//       })
-
-//       console.log("***********************************************")
-//       console.log("subtotal",subTOTAL);
-//       console.log("tax",Tax)
-//       console.log("discount",Discount)
-//       console.log("Total",Total);
-      
-// }
 const handleinvoiceHISTORY=async()=>{
-  console.log("customer name",fullName)
-  console.log("number",invoiceNumber)
-   console.log("Total",Total);
-   console.log("email",phoneCustomer)
    await axios.post('http://localhost:5000/addINVOICE',{
     id: company.id,
     invoiceNumber,
@@ -183,22 +159,21 @@ const handleinvoiceHISTORY=async()=>{
     console.log(res.data.message)
    })
 } 
-const downloadPDF = async ()=>{
-  console.log(rows)
-  await axios.post('http://localhost:5000/downloadpdf',
-  {items : rows ,cashier: {name: company.name , address: company.address , email: company.email },   
-  client: {name: fullName , address: addressCustomer , email: emailCustomer } 
-  ,total :Total , numberOfInvoice: invoiceNumber , taxe: Tax , discount: Discount,currency:currencySelected})
 
-  .then(response =>{
+const downloadPDF = async ()=>{
+  setisLoadingInvoice(true);
+  await axios.post('http://localhost:5000/downloadpdf',
+  {items : rows ,cashier: {name: company.name , address: company.address , email: company.email,phone: company.phone,fileLogo: company.fileLogo },   
+  client: {name: fullName , address: addressCustomer , email: emailCustomer,phone: phoneCustomer } 
+  ,total :Total , numberOfInvoice: invoiceNumber , taxe: Tax , discount: Discount,currency:currencySelected},
+  ).then(response =>{
     console.log('res post invoice : ',response);
        setinvoicepdf(response.data.invoice);
-       console.log(response.data.invoice);
+       easyinvoice.download('myInvoice.pdf', response.data.invoice);
        if(response.data.invoice){
         handleinvoiceHISTORY();
-        
        }
-       easyinvoice.download('myInvoice.pdf', response.data.invoice);
+       setisLoadingInvoice(false);
        
       
   })
@@ -207,18 +182,19 @@ const downloadPDF = async ()=>{
   }) 
  }
  const previewPDF = async ()=>{
-              
+  setisLoadingInvoice(true); 
   await axios.post('http://localhost:5000/downloadPDF',
-  {items : rows ,cashier: {name: company.name , address: company.address , email: company.email },   
-  client: {name: fullName , address: addressCustomer , email: emailCustomer } 
+  {items : rows ,cashier: {name: company.name , address: company.address , email: company.email,phone: company.phone,fileLogo: company.fileLogo},   
+  client: {name: fullName , address: addressCustomer , email: emailCustomer,phone: phoneCustomer } 
   ,total :Total , numberOfInvoice: invoiceNumber , taxe: Tax , discount: Discount,currency:currencySelected})
 
   .then( async response =>{
     console.log('res post invoice : ',response);
        setinvoicepdf(response.data.invoice);
        console.log(response.data.invoice);
-      // const result = await easyinvoice.createInvoice(data);
+
        easyinvoice.render('pdf', response.data.invoice);
+       setisLoadingInvoice(false);
                        
   })
   .catch(err=>{
@@ -234,11 +210,20 @@ const downloadPDF = async ()=>{
   return (<>
   {verified ? 
   (<>
+  
     <div className="container-invoice-auto">
+       
       <div className="btns-auto">
         <button id="Preview" type="submit"onClick={()=>previewPDF()}>Preview PDF</button>
         <button id="download" type="submit" onClick={()=>downloadPDF()} >Download PDF</button>
       </div>
+      {isLoadingInvoice?<>
+        <div className="loadingInvoice">
+        <img src={loading} alt="Loading" />
+        <h3>We are processing your invoice , wait few seconds ...</h3>
+      </div>
+      </>:<>{null}</>}
+      
     <div className="invoice">
       <div className="general-info">
         <p>Creation date: <span id="creationDate">{formattedDate}</span></p>
@@ -262,6 +247,7 @@ const downloadPDF = async ()=>{
                      Name    :<input type="text" value={company.name} disabled/><br />
                      email   :<input type="text" value={company.email} disabled/><br />
                      address :<input type="text" value={company.address} disabled />
+                     phone   :<input type="text" value={company.phone} disabled />
                   
             </>):(<>
             <input type="text" placeholder="cashier name" id="cashier-name" /><br />
@@ -279,8 +265,9 @@ const downloadPDF = async ()=>{
                         <option key={index} value={client.fullname}>{client.fullname}</option>
                       ))}
                    </select>
-                           email :<input type="text" value={emailCustomer} disabled/><br />
+                           email   :<input type="text" value={emailCustomer} disabled/><br />
                            address :<input type="text" placeholder={addressCustomer} disabled />
+                           phone   :<input type="text" placeholder={phoneCustomer} disabled />
             </>)
             :(<>
                   Name    :<input type="text" placeholder="client name" id="client-name" /><br />
@@ -310,7 +297,7 @@ const downloadPDF = async ()=>{
                    <select name="" id="" onChange={(e)=>handleProductPrice(e,index)}>
                     <option value="">select a product</option>
                       {products.map((product,index)=>(
-                        <option key={index}  value={product.price}>{product.name}</option>
+                        <option key={index}  value={JSON.stringify(product)}>{product.name}</option>
                       ))}
                    </select>
                   </>):(<><input

@@ -10,7 +10,7 @@ const Home = () => {
         <div id="parts"> 
         <div className="partleft">
           <div id="centretitres">
-      <h1 id="titre">Generate your invoices <span id="auto">Automaticlly</span> </h1>
+      <h1 id="titre">Generate your invoices <span id="auto">Automatically</span> </h1>
         <h1 id="titre2">Save your <span id="time">time</span>, earn your <span id="money">money</span> </h1>      
        <h1 id="getstarted"> 
        <Link id="started">Get started</Link></h1>
