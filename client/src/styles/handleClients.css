@@ -205,15 +205,16 @@
   height: auto;
   width: 500px;
   position: absolute;
-  background-color: rgba(163, 158, 158, 0.997);
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
+  color: black;
   top: 40%;
   left: 50%;
+  padding: 1%;
   transform: translate(-50%, -50%);
-  border-radius: 5px;
+  border-radius: 12px;
 }
 @media (max-width: 768px) {
   .popDeleteClient {
@@ -237,7 +238,7 @@
 }
 
 .delete-client-options button {
-  background-color: rgb(255, 131, 131);
+  background-color: #9999ff;
   color: rgb(255, 255, 255);
   width: 25%;
   height: 30px;
@@ -247,7 +248,7 @@
 }
 
 .delete-client-options button:hover {
-  background-color: red;
+  background-color: blue;
   color: white;
 }
 

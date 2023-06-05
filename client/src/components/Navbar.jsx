@@ -37,6 +37,16 @@ const Navbar = () => {
   }, []);
   const location = useLocation();
   const currentURL = location.pathname;
+  const scroleToServices=()=>{
+    if(currentURL==='/Home' || currentURL === '/'){
+       const pdfDiv = document.getElementById('ourServices');
+       pdfDiv.scrollIntoView({behavior: 'smooth'});
+    }
+    else{
+       navigate('/');
+    }
+ 
+ }
    const handleScroll = () => {
         
     if (window.scrollY > 200 || currentURL=='/InvoiceManu' ) { // Changer la couleur à partir de la position de scroll 100px
@@ -68,9 +78,9 @@ const Navbar = () => {
             <div className="nav"> 
                 <ul>
                     <li className=''><Link to="/Home" className='same '>Home</Link> </li>
-                    <li className=''><Link to="/Home#ourServices" className='same '>Services</Link> </li>
+                    <li className=''><Link to="/Home#ourServices" className='same' onClick={(()=>scroleToServices())}>Services</Link> </li>
                     <li className=''><Link to="/Contact" className='same '>Contact</Link> </li>
-                    <li className=''><Link to="" className='same '>About us</Link> </li>
+                    <li className=''><Link to="/Aboutus" className='same '>About us</Link> </li>
                 </ul>
             </div>
             {loggedIN ? (<>

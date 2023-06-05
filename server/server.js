@@ -1,11 +1,10 @@
 const express=require('express');
 const cors=require('cors');
-const  fs=require('fs');
+const fs=require('fs');
 const easyinvoice = require('easyinvoice');
 const multer = require('multer');
 const path = require('path');
 const { PrismaClient } = require('@prisma/client');
-// const { Console } = require('console');
 const nodemailer = require('nodemailer');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey('your-sendgrid-api-key');
@@ -15,7 +14,7 @@ const prisma=new PrismaClient()
 const app=new express();
 app.use(cors());
 app.use(express.json());
-
+let pdfCONTENT='';
 //************************************************************ */
 prisma.$connect().then(()=>{
   console.log("connected to db")
@@ -24,8 +23,7 @@ prisma.$connect().then(()=>{
 })
 //*********************************************************** */
 app.get('/Home',(req,res)=>{
-  res.json('hahahahah');
-  console.log("/Home");
+  
 })
 //*********************************************************** */
 app.post('/login',async (req,res)=>{
@@ -213,16 +211,6 @@ app.post('/companyInfo',async(req,res)=>{
 })
 //*********************************************************** */
 app.post('/getCLIENTS',async(req,res)=>{
-  // const newx=await prisma.customer.create({
-  //   data : {
-  //     fullname: 'yassine rodri',
-  //     email : 'yassine@gmail.com',
-  //     phone :'0607734338',
-  //     address: 'Tanjia gueliz',
-  //     companyId: req.body.id,
-  //   }
-  // })
-  // console.log(newx)
   try {
     const clients=await prisma.customer.findMany({
       where :{
@@ -249,7 +237,6 @@ app.post('/searchPRODUCT',async(req,res)=>{
         }
       })
       res.json({"product" : product})
-      console.log(product)
     } catch (error) {
       res.json(error)
     }
@@ -467,7 +454,10 @@ app.post('/downloadpdf', (req,res)=>{
       easyinvoice.createInvoice(data, async function (result) {
           //The response will contain a base64 encoded PDF file
          // console.log('PDF base64 string: ', result.pdf);
+               pdfCONTENT=result.pdf;
+              //  pdfCONTENT=pdfCONTENT.toString('base64');
                res.json({'invoice':result.pdf});
+               
           });
     } catch (error) {
       console.error('Une erreur s\'est produite lors de la génération du PDF:', error);
@@ -475,10 +465,6 @@ app.post('/downloadpdf', (req,res)=>{
     } catch (error) {
        console.log('error ', error);
     }
-   
-  
- 
-
 
   })
 
@@ -683,51 +669,54 @@ app.post('/searchClient',async(req,res)=>{
     }
 })
 /********************* */
-const transporter = nodemailer.createTransport({
-  // Specify your email service provider and credentials here
-  service: 'Gmail',
-  auth: {
-    user: 'mehdi.stage.youssef@gmail.com',
-    pass: 'stage@123'
+
+//**************************************************************** */
+app.post('/sendbyEMAIL', async (req, res) => {
+  const email=req.body.email;
+  console.log("receivedddddddddddddddddddd",pdfCONTENT)
+  const pdf64 = pdfCONTENT.replace(/^data:application\/pdf;base64,/, '');
+
+  // Decode the Base64 string
+  const pdfFILE = Buffer.from(pdf64, 'base64');
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'mehdi.stage.youssef@gmail.com',
+        pass: 'pugewpcyxydmufei',
+      },
+    });
+
+    const mailOptions = {
+      from: 'mehdi.stage.youssef@gmail.com',
+      to: email,
+      subject: 'Invoice',
+      text: 'Attached is the invoice PDF.',
+      attachments: [
+        {
+          filename: 'myInvoice.pdf',
+          content: pdfFILE,
+        },
+      ],
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending email:', error);
+      } else {
+        console.log('Email sent:', info.messageId);
+      }
+    });
+  } catch (error) {
+    console.error('Error sending email:', error);
   }
 });
-app.post('/send-email', async(req, res) => {
-  const { fullName, email, subject} = req.body;
-  // const msg = {
-  //   to: 'youssef@gmail.com',
-  //   from: email,
-  //   subject: subject,
-  //   text: `From: ${fullName}\n\nEmail: ${email}\n\nSubject: ${subject}`,
-  // };
 
-  // try {
-  //   await sgMail.send(msg);
-  //   console.log('Email sent successfully');
-  //   res.send('Email sent successfully');
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).send('Error sending email');
-  // }
-  // Create email message
-  // const mailOptions = {
-  //   from: email,
-  //   to: 'youssefkun64@example.com',
-  //   subject: subject,
-  //   text: `From: ${fullName}\n\n${subject}`
-  // };
 
-  // // Send the email
-  // transporter.sendMail(mailOptions, (error, info) => {
-  //   if (error) {
-  //     console.log(error);
-  //     res.status(500).send('Error sending email');
-  //   } else {
-  //     console.log('Email sent: ' + info.response);
-  //     res.send('Email sent successfully');
-  //   }
-  // })
-})
-//**************************************************************** */
+//************************************************************ */
 app.listen('5000',()=>{
   console.log('listening to server on port 5000')
 })

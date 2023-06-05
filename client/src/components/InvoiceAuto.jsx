@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { format } from 'date-fns';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import {Link} from 'react-router-dom'; 
+
 import easyinvoice from 'easyinvoice';
 
 const InvoiceAuto = () => {
@@ -20,7 +20,7 @@ const InvoiceAuto = () => {
   const navigate = useNavigate("");
   const [verified,setverified]=useState(false);
   const [invoicepdf,setinvoicepdf]=useState('');
-  const [currencySelected,setCurrencySelected]=useState('');
+  const [currencySelected,setCurrencySelected]=useState('USD');
   const [isLoadingInvoice,setisLoadingInvoice]=useState(false)
 
 //************************************************************************************** */
@@ -90,8 +90,8 @@ const [invoiceNumber,setInvoiceNumber]=useState('');
 
 //********************************************************************************************** */
  const handleProductPrice=(e,index)=>{
-  const product= JSON.parse( e.target.value);
-
+   if(e.target.value !== ""){
+      const product= JSON.parse( e.target.value);
       const updatedRows = [...rows];
       updatedRows[index] = { ...updatedRows[index], ['unitCost']: product.price };
       updatedRows[index] = { ...updatedRows[index], ['item']: product.name };
@@ -106,7 +106,7 @@ const [invoiceNumber,setInvoiceNumber]=useState('');
       }
       // caclulTax_Discount()
       setRows(updatedRows);
- }
+ }}
 //*************************************************************************************************** */
 
 const [emailCustomer,setemailCustomer]=useState('');
@@ -160,7 +160,7 @@ const handleinvoiceHISTORY=async()=>{
    })
 } 
 
-const downloadPDF = async ()=>{
+const downloadPDF = async (share)=>{
   setisLoadingInvoice(true);
   await axios.post('http://localhost:5000/downloadpdf',
   {items : rows ,cashier: {name: company.name , address: company.address , email: company.email,phone: company.phone,fileLogo: company.fileLogo },   
@@ -169,8 +169,19 @@ const downloadPDF = async ()=>{
   ).then(response =>{
     console.log('res post invoice : ',response);
        setinvoicepdf(response.data.invoice);
-       easyinvoice.download('myInvoice.pdf', response.data.invoice);
-       if(response.data.invoice){
+       if(share === "share"){
+            axios.post('http://localhost:5000/sendbyEMAIL',{
+              email: emailCustomer,
+          }).then(res=>
+          console.log(res))
+       }
+       else{
+        easyinvoice.download('Invoice N°'+invoiceNumber, response.data.invoice);
+       }
+      
+        if(response.data.invoice){
+        
+        console.log('Email sent successfully');
         handleinvoiceHISTORY();
        }
        setisLoadingInvoice(false);
@@ -195,6 +206,8 @@ const downloadPDF = async ()=>{
 
        easyinvoice.render('pdf', response.data.invoice);
        setisLoadingInvoice(false);
+       const pdfDiv = document.getElementById('pdftest');
+       pdfDiv.scrollIntoView({behavior: 'smooth'});
                        
   })
   .catch(err=>{
@@ -203,19 +216,18 @@ const downloadPDF = async ()=>{
  }
  const handleSelectCurrency=(e)=>{
   setCurrencySelected(e.target.value);
-
  }
 
 //*************************************************************************************************** */
   return (<>
   {verified ? 
   (<>
-  
     <div className="container-invoice-auto">
        
       <div className="btns-auto">
         <button id="Preview" type="submit"onClick={()=>previewPDF()}>Preview PDF</button>
         <button id="download" type="submit" onClick={()=>downloadPDF()} >Download PDF</button>
+        <button id="download" type="submit" onClick={()=>downloadPDF("share")} >Send via email</button>
       </div>
       {isLoadingInvoice?<>
         <div className="loadingInvoice">
@@ -364,7 +376,7 @@ const downloadPDF = async ()=>{
              
         </div>
       </div>
-      <div className="invoice-preview-p">this is your invoice:</div>
+      <div className="invoice-preview-p">this is your invoice: ▼ ▼ ▼</div>
          <div id="pdf"></div>
     </div>
   </>)

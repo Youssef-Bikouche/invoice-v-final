@@ -1,12 +1,10 @@
 import React from "react"
-import imginvoice from '../media/12070.jpg'
+import imginvoice from '../media/invoicePDF.jpg'
 import about1 from '../media/about1.png'
 import about2 from '../media/about2.png'
 import about3 from '../media/about3.png'
 import '../styles/aboutus.css' 
 const Aboutus = ()=>{
-
-
 
 
     return(

@@ -27,7 +27,7 @@ model company {
 
 model customer {
   id        String   @id @default(uuid())
-  fullname  String   @unique
+  fullname  String   
   email     String   @unique
   address   String
   phone     String   @unique

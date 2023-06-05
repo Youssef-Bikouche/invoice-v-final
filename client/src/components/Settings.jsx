@@ -158,7 +158,7 @@ const [phoneEMPTY,setphoneEMPTY]=useState(false)
               </div>
               ):(<></>)}
              
-              <h1>Settings </h1>
+              <h1>Settings <span>⚙️</span> </h1>
               <label htmlFor="">Company Name:</label>
               <input type='text' value={company.name} onChange={(e) =>  handleCompanyName(e)} />
               {nameEMPTY ? (<><p className='empty-message'>name can't be empty</p></>):<></>}

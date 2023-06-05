@@ -3,7 +3,6 @@ import '../styles/handleClients.css';
 import { getClients } from './utilities/getClients';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import loadinggif from '../media/30.gif'
 import moment from 'moment'
 import deleteIcon from '../media/delete.png';
 import editIcon from '../media/draw.png';
@@ -194,7 +193,7 @@ const handlePhone = (e)=>{
      <div className="all-handel-client">
         
       <div className="container-table-client">
-      {isloading ? (<div id="divIsLoading" > <img id="isloading" src={loadinggif} alt="" /> </div>) : (<>
+      {isloading ? (<div id="divIsLoading" > <img id="isloading" src={loading} alt="" /> </div>) : (<>
       
       
         <div className="div-add-client">

@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+*
+* Testing
+*
+**/
+.allAbout {
+  position: relative;
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  top: 80px;
+}
+.allAbout .containerAbout {
+  border-radius: 20px;
+  width: 80%;
+  height: max-content;
+  border: 5px solid white;
+  box-shadow: 2px 2px 10px #ffffff;
+  text-align: center;
+}
+.allAbout .containerAbout .imginvoice img {
+  width: 250px;
+  transform: rotate(-45deg);
+  box-shadow: 2px 2px 5px black;
+}
+@media (max-width: 1080px) {
+  .allAbout .containerAbout .imginvoice img {
+    width: 150px;
+  }
+}
+
+.textAbout {
+  margin-top: 50px;
+  display: flex;
+}
+@media (max-width: 1080px) {
+  .textAbout {
+    display: block;
+  }
+}
+.textAbout .text1, .textAbout .text2, .textAbout .text3 {
+  font-family: Ubuntu;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+@media (max-width: 1080px) {
+  .textAbout .text1, .textAbout .text2, .textAbout .text3 {
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    margin-top: 20px;
+  }
+}/*# sourceMappingURL=aboutus.css.map */

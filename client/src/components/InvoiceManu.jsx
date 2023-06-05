@@ -10,15 +10,17 @@ const InvoiceManu = () => {
    const [inputTaxeValue,setInputTaxeValue] = useState(0);
    const [inputDiscountValue,setInputDiscountValue] = useState(0);
    const [inputTOTALValue,setInputTOTALValue] = useState(0);
-   const [numberOfInvoice,setNumberOfInvoice] = useState();
-   const [clientName , setClientName] = useState(); 
-   const [clientEmail , setClientEmail] = useState(); 
-   const [clientAddress , setClientAddress] = useState(); 
-   const [cashierName , setCashierName] = useState(); 
-   const [cashierEmail , setCashierEmail] = useState(); 
-   const [cashierAddress , setCashierAddress] = useState();
-   const [invoicepdf , setinvoicepdf] = useState();
-   const [currencySelected , setCurrencySelected] = useState();
+   const [numberOfInvoice,setNumberOfInvoice] = useState('');
+   const [clientName , setClientName] = useState(''); 
+   const [clientEmail , setClientEmail] = useState(''); 
+   const [clientAddress , setClientAddress] = useState(''); 
+   const [cashierName , setCashierName] = useState(''); 
+   const [cashierEmail , setCashierEmail] = useState(''); 
+   const [cashierAddress , setCashierAddress] = useState('');
+   const [invoicepdf , setinvoicepdf] = useState('');
+   const [currencySelected , setCurrencySelected] = useState('');
+   const [cashierPhone,setCashierPhone] = useState('');
+   const [clientPhone,setClientPhone]=useState('');
    const handleAddRow = () => {
       // Clone the last row
       const lastRow = rows[rows.length - 1];
@@ -123,7 +125,7 @@ const InvoiceManu = () => {
            setNumberOfInvoice(e.target.value);
      }
 
-     /**** */
+     /** */
      const handleSelectCurrency=(e)=>{
       setCurrencySelected(e.target.value);
     
@@ -151,14 +153,19 @@ const saveEmailCashier=(e)=>{
 setCashierEmail(e.target.value);
 
 }
+ const savePhoneCashier = (e)=>{
+     setCashierPhone(e.target.value);
+ }
+ const savePhoneClient =(e)=>{
+     setClientPhone(e.target.value);
+ }
 
-
-     /***** */
+     /*** */
   
-       const downloadPDF = async ()=>{
+       const downloadPDF = async (share)=>{
         await axios.post('http://localhost:5000/downloadpdf',
-        {items : rows ,cashier: {name: cashierName , address: cashierAddress , email: cashierEmail },   
-        client: {name: clientName , address: clientAddress , email: clientEmail } 
+        {items : rows ,cashier: {name: cashierName , address: cashierAddress , email: cashierEmail , phone:cashierPhone },   
+        client: {name: clientName , address: clientAddress , email: clientEmail, phone:clientPhone } 
         ,total :inputTOTALValue , numberOfInvoice: numberOfInvoice , taxe: inputTaxeValue ,
          discount: inputDiscountValue, currency:currencySelected  })
 
@@ -166,12 +173,15 @@ setCashierEmail(e.target.value);
           console.log('res post invoice : ',response);
              setinvoicepdf(response.data.invoice);
              console.log(response.data.invoice);
-          //   easyinvoice.createInvoice(response.data.invoice, function (result) {
-               easyinvoice.download('invoiceN°'+numberOfInvoice, response.data.invoice);
-               //	you can download like this as well:
-               //	easyinvoice.download();
-               //	easyinvoice.download('myInvoice.pdf');   
-         //  });
+             if(share === "share"){
+               axios.post('http://localhost:5000/sendbyEMAIL',{
+                 email: clientEmail,
+             }).then(res=>
+             console.log(res))
+          }
+          else{
+           easyinvoice.download('Invoice N°'+numberOfInvoice, response.data.invoice);
+          }
         })
         .catch(err=>{
            console.error(err);
@@ -180,8 +190,8 @@ setCashierEmail(e.target.value);
 
        const previewPDF = async ()=>{
          await axios.post('http://localhost:5000/downloadPDF',
-         {items : rows ,cashier: {name: cashierName , address: cashierAddress , email: cashierEmail },   
-         client: {name: clientName , address: clientAddress , email: clientEmail } 
+         {items : rows ,cashier: {name: cashierName , address: cashierAddress , email: cashierEmail, phone:cashierPhone },   
+         client: {name: clientName , address: clientAddress , email: clientEmail ,phone:clientPhone } 
          ,total :inputTOTALValue , numberOfInvoice: numberOfInvoice , taxe: inputTaxeValue ,
           discount: inputDiscountValue, currency:currencySelected })
  
@@ -204,6 +214,7 @@ setCashierEmail(e.target.value);
             {/* <button id="sendEmail" type="submit">Send Email</button> */}
             <Link to='#pdf'><button type="submit" onClick={previewPDF} >View PDF</button></Link>
             <button id="download" type="submit" onClick={downloadPDF} >Download PDF</button>
+            <button id="download" type="submit" onClick={()=>downloadPDF("share")} >Send via email</button>
          </div>
          <div className="invoice">
             <div className="general-info">
@@ -224,12 +235,16 @@ setCashierEmail(e.target.value);
                      <input onChange={saveNameCashier} type="text" placeholder="cashier name" id="cashier-name"></input><br></br>
                      <input onChange={saveEmailCashier} type="text" placeholder="cashier email" id="cashier-email"></input> <br></br>
                      <input onChange={saveAddressCashier} type="text" placeholder="cashier address" id="cashier-address"></input>
+                     <input onChange={savePhoneCashier} type="text" placeholder="cashier phone" id="cashier-phone"></input>
+
                   </div>
                   <div className="info-client">
                      <p>Client</p>
                      <input onChange={saveNameClient} type="text" placeholder="client name" id="client-name"></input> <br></br>
                      <input onChange={saveEmailClient} type="text" placeholder="client email" id="client-email"></input><br></br>
                      <input onChange={saveAddressClient} type="text" placeholder="client address" id="client-address"></input>
+                     <input onChange={savePhoneClient} type="text" placeholder="client phone" id="client-phone"></input>
+
                   </div>
 
                </div>

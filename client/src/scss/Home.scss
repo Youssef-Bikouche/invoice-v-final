@@ -53,6 +53,12 @@
      color: rgb(65, 247, 65);
      font-weight: 400;
  }
+ #ourServices, #aboutus{
+   @include font(xx-large,900);
+   text-align: center;
+   font-family: Ubentu;
+   margin: 2%;
+ }
  .partleft #titre2 #money{
    // border:1px solid red;
      color: rgb(65, 247, 65);
@@ -81,7 +87,7 @@ margin-top: 40px;
 #section2{
  margin-top: 20px;
 }
-#section2 #ourServices{
+#section2 #ourServices,#aboutus{
     text-align: center;
     position: relative;
     padding:5px;

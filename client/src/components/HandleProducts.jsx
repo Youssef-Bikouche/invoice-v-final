@@ -3,7 +3,7 @@ import '../styles/HandleProducts.css';
 import { getPRODUCTS } from './utilities/getProducts';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import loadinggif from '../media/30.gif'
+import loadinggif from '../media/loading.gif'
 import moment from 'moment'
 import deleteIcon from '../media/delete.png';
 import editIcon from '../media/draw.png'

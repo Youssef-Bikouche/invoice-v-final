@@ -13,6 +13,7 @@ import InvoicesHistory from "./components/InvoicesHistory";
 import HandleClients from "./components/HandleClients";
 import NewClient from "./components/NewClient";
 import Contact from "./components/Contact";
+import Aboutus from "./components/Aboutus";
 function App() {
   return (
     <Router>
@@ -147,6 +148,16 @@ function App() {
             <>
               <Navbar/>
               <Contact/>
+            </>
+          }
+        />
+        <Route
+          exact
+          path="/Aboutus"
+          element={
+            <>
+              <Navbar/>
+              <Aboutus/>
             </>
           }
         />

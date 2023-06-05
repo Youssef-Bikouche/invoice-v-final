@@ -62,6 +62,16 @@
   font-weight: 400;
 }
 
+#ourServices, #aboutus {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: xx-large;
+  font-weight: 900;
+  font-style: normal;
+  text-align: center;
+  font-family: Ubentu;
+  margin: 2%;
+}
+
 .partleft #titre2 #money {
   color: rgb(65, 247, 65);
   font-weight: 400;
@@ -95,7 +105,7 @@
   margin-top: 20px;
 }
 
-#section2 #ourServices {
+#section2 #ourServices, #aboutus {
   text-align: center;
   position: relative;
   padding: 5px;

@@ -104,7 +104,7 @@
   justify-content: space-evenly;
   flex-direction: column;
   background-color: #fff;
-  transform: translate(-40%, -50%);
+  transform: translate(-50%, -50%);
 }
 .settings-container .company-settings .confirm-delete-account input {
   height: 20%;
