@@ -665,7 +665,6 @@ app.post('/searchClient',async(req,res)=>{
 //**************************************************************** */
 app.post('/sendbyEMAIL', async (req, res) => {
   const email=req.body.email;
-  console.log("receivedddddddddddddddddddd",pdfCONTENT)
   const pdf64 = pdfCONTENT.replace(/^data:application\/pdf;base64,/, '');
 
   // Decode the Base64 string
