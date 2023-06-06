@@ -14,10 +14,14 @@
   position: relative;
   height: max-content;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   justify-items: center;
   align-items: center;
-  top: 80px;
+  top: 20px;
+}
+.allAbout #aboutus {
+  font-weight: 400;
 }
 .allAbout .containerAbout {
   border-radius: 20px;
@@ -26,6 +30,7 @@
   border: 5px solid white;
   box-shadow: 2px 2px 10px #ffffff;
   text-align: center;
+  margin-top: 20px;
 }
 .allAbout .containerAbout .imginvoice img {
   width: 250px;
@@ -41,6 +46,7 @@
 .textAbout {
   margin-top: 50px;
   display: flex;
+  padding-bottom: 20px;
 }
 @media (max-width: 1080px) {
   .textAbout {
@@ -60,4 +66,8 @@
     margin: auto;
     margin-top: 20px;
   }
+}
+
+#aboutus {
+  margin-top: 50px;
 }/*# sourceMappingURL=aboutus.css.map */

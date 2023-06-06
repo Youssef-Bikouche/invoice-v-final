@@ -112,6 +112,7 @@ const handleDescription = (e)=>{
       
      <div className="all-table-btns">
       <div className="container-all">
+      <h2>➔ Manage your products :</h2>
       {isloading ? (<div id="divloadinggif" > <img id="loadinggif" src={loadinggif} alt="" /> </div>) : (<>
       
       

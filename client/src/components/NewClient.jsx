@@ -107,7 +107,7 @@ import { useNavigate } from 'react-router-dom';
                      <div  className='label-input-client '>
                       <label>Name</label>  
                      <input  onChange={(e)=>handleName(e)} placeholder="..."  type="text" name="" id="" />
-                     {errorUniqueFullname ? <p className='error-unique' >The name of the client must be unique</p> : null}
+                     {errorUniqueFullname ? <p className='error-unique' > </p> : null}
                      {inputNameEmpty ? <p className='error-empty' >name field is empty</p> : null}
                      </div>
                      <div className='label-input-client '>

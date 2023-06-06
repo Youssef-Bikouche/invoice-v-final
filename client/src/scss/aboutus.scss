@@ -8,10 +8,14 @@
      position: relative;
      height: max-content;
      display: flex;
-     justify-content: center;
+     flex-direction: column;
+     justify-content: center; 
      justify-items:center;
      align-items: center;
-     top: 80px;
+     top:20px;
+     #aboutus{
+      font-weight:400 ;
+     }
  .containerAbout{
     border-radius: 20px;
      width: 80%;
@@ -19,10 +23,12 @@
      border: 5px solid white;
      box-shadow: 2px 2px 10px #ffffff;
    text-align: center;
+   margin-top: 20px;
     .imginvoice img{  
         width: 250px;
         transform: rotate(-45deg);
         box-shadow: 2px 2px 5px black;
+
         @include media("<=1080px"){
            width: 150px;
           
@@ -34,9 +40,11 @@
    
 
 }
+
 .textAbout{
     margin-top: 50px;
       display: flex;
+      padding-bottom: 20px;
       @include media("<=1080px"){
         display: block;
         
@@ -52,6 +60,11 @@
           text-align: center;
           margin: auto;
           margin-top: 20px;
+          
        }
       }
+}
+    
+#aboutus{
+   margin-top: 50px;
 }

@@ -347,4 +347,16 @@ body {
   right: none;
   bottom: none;
   transform: translate(-50%, -50%);
+}
+
+.divsendbuttonandmessage {
+  width: 150px;
+  padding: 2px;
+}
+.divsendbuttonandmessage p {
+  color: green;
+}
+
+.failedd p {
+  color: red;
 }/*# sourceMappingURL=InvoiceAuto.css.map */

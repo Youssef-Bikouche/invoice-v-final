@@ -15,6 +15,8 @@ import easyinvoice from 'easyinvoice';
 const InvoiceAuto = () => {
   const [rows, setRows] = useState([{item: '',unitCost: '',quantity: '',lineTotal: ''}]); 
   const [subTOTAL,setsubTOTAL]=useState(0);
+  const [emailSendSucces,setemailSendSucces]=useState(false);
+  const [emailnotSend,setemailnotSend]=useState(false);
   const currentDate = new Date();
   const formattedDate = format(currentDate, 'dd/MM/yyyy');
   const navigate = useNavigate("");
@@ -170,10 +172,29 @@ const downloadPDF = async (share)=>{
     console.log('res post invoice : ',response);
        setinvoicepdf(response.data.invoice);
        if(share === "share"){
-            axios.post('http://localhost:5000/sendbyEMAIL',{
-              email: emailCustomer,
-          }).then(res=>
-          console.log(res))
+        if(emailCustomer === ''){
+          setemailnotSend(true);
+          setInterval(() => {
+            setemailnotSend(false);
+          },2000);
+        }
+        else{
+        try {
+          axios.post('http://localhost:5000/sendbyEMAIL',{
+            email: emailCustomer,
+            }).then(res=>
+            console.log(res));
+            setemailSendSucces(true);
+            setInterval(() => {
+              setemailSendSucces(false);
+            },2000);
+        } catch (error) {
+          setemailnotSend(true);
+          setInterval(() => {
+            setemailnotSend(false);
+          },2000);
+        }
+      }
        }
        else{
         easyinvoice.download('Invoice N°'+invoiceNumber, response.data.invoice);
@@ -224,10 +245,14 @@ const downloadPDF = async (share)=>{
   (<>
     <div className="container-invoice-auto">
        
-      <div className="btns-auto">
+    <div className="btns-auto">
         <button id="Preview" type="submit"onClick={()=>previewPDF()}>Preview PDF</button>
         <button id="download" type="submit" onClick={()=>downloadPDF()} >Download PDF</button>
+        <div className="divsendbuttonandmessage">
         <button id="download" type="submit" onClick={()=>downloadPDF("share")} >Send via email</button>
+        {emailSendSucces?<><div className="sendEmail"> <p>sent successfully ✅</p> </div></>:<></>}
+        {emailnotSend?<><div className="sendEmail failedd"> <p>failed to send ❌</p> </div></>:<></>}
+        </div>
       </div>
       {isLoadingInvoice?<>
         <div className="loadingInvoice">

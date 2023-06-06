@@ -9,10 +9,10 @@ import '../styles/Navbar.css'
 const Navbar = () => {
         const[ logoCompany , setlogoCompany] = useState();
         const[ companyLogoName , setCompanyLogoName] = useState(sessionStorage.getItem('companyLogo'));
-       
-     const getLogo = ()=>{
+        const[verified,setverified]=useState(false);
+     const getLogo = async()=>{
     
-         axios.post('http://localhost:5000/logos',{logoname:companyLogoName})
+         await axios.post('http://localhost:5000/logos',{logoname:companyLogoName})
          .then( res=>{
             setlogoCompany(res.data.imageDataUrl);
          })
@@ -21,9 +21,11 @@ const Navbar = () => {
          })
      }
      useEffect(() => {
-          
+      checkLogin(setverified);
+      if(verified){    
       getLogo();
-    }, []);
+      }
+    }, [verified]);
 
 
   const navigate=useNavigate();
@@ -31,9 +33,6 @@ const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    return () => {
-     // window.removeEventListener('scroll', handleScroll);
-    };
   }, []);
   const location = useLocation();
   const currentURL = location.pathname;

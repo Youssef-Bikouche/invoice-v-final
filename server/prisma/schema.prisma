@@ -28,9 +28,9 @@ model company {
 model customer {
   id        String   @id @default(uuid())
   fullname  String   
-  email     String   @unique
+  email     String   
   address   String
-  phone     String   @unique
+  phone     String   
   company   company? @relation(fields: [companyId], references: [id])
   companyId String?
   createdAt DateTime @default(now())

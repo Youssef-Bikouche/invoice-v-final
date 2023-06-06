@@ -69,7 +69,7 @@ import { useNavigate } from 'react-router-dom';
                      <div  className='label-input '>
                       <label>Title</label>  
                      <input  onChange={(e)=>handleTitle(e)} placeholder="..."  type="text" name="" id="" />
-                     {errUniqueProduct ? <p className='error-title-unique' >The name of the product must be unique</p> : null}
+                     {errUniqueProduct ? <p className='error-title-unique' ></p> : null}
                      {inputTitleEmpty ? <p className='error-title-empty' >name field is empty</p> : null}
                      </div>
                      <div className='label-input '>

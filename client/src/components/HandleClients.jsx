@@ -38,8 +38,6 @@ const HandleClients= () => {
 /******** */
   useEffect(()=>{
       getClients(companyID,setClients,setIsloading);
-       
-   //   console.log('ClientsGETED: ',clients);
   },[])
 
 
@@ -51,9 +49,7 @@ const HandleClients= () => {
           term,
           companyID,
         }).then(res=>{
-          console.log('res data client',res.data.client)
           if(res.data.client){
-            console.log(res.data.client);
             setClients([]);
             setsearchClients(res.data.client);
             
@@ -83,9 +79,7 @@ const HandleClients= () => {
       await axios.post('http://localhost:5000/deleteClient',{
         id,
       }).then(res=>{
-        console.log(res);
         if(res.data.message ==="deleted"){
-         
           setpopDeleteClient(false);
           getClients(companyID,setClients,setIsloading);
         }
@@ -140,7 +134,7 @@ const handlePhone = (e)=>{
       setNewEmail(email);
       setNewPhone(phone);
      setErrorUniqueFullname(false);
-       setErrorUniqueEmail(false);
+    setErrorUniqueEmail(false);
     setErrorUniquePhone(false);
     setInputNameEmpty(false);
     setInputEmailEmpty(false);
@@ -176,9 +170,9 @@ const handlePhone = (e)=>{
                    }
                    else{
                     console.log(res.data.message[0]);   
-                     if(res.data.message[0]==='fullname') setErrorUniqueFullname(true);
-                     if(res.data.message[0]==='email') setErrorUniqueEmail(true);
-                     if(res.data.message[0]==='phone') setErrorUniquePhone(true);
+                    //  if(res.data.message[0]==='fullname') setErrorUniqueFullname(true);
+                    //  if(res.data.message[0]==='email') setErrorUniqueEmail(true);
+                    //  if(res.data.message[0]==='phone') setErrorUniquePhone(true);
                    }
              })
 
@@ -193,6 +187,7 @@ const handlePhone = (e)=>{
      <div className="all-handel-client">
         
       <div className="container-table-client">
+      <h2>➔ Manage your clients :</h2>
       {isloading ? (<div id="divIsLoading" > <img id="isloading" src={loading} alt="" /> </div>) : (<>
       
       

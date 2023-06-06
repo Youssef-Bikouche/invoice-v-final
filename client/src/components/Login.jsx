@@ -19,7 +19,6 @@ const Login = () => {
   const handlelogin = async () => {
     const verify = checkINPUTS(username, password, setinputCOLOR);
     if (verify) {
-      console.log("here")
       await axios.post("http://localhost:5000/login", {
           username,
           password,

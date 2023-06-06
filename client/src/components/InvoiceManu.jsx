@@ -106,11 +106,6 @@ const InvoiceManu = () => {
          setInputTOTALValue( (inputSubtotalValue + (inputSubtotalValue*(+inputTaxeValue / 100)) - ( inputSubtotalValue*(+e.target['value'] / 100) )).toFixed(2))
 
        }
-      //  if(e.target['name'] == 'subtotal' ){
-      //    setInputSubtotalValue( e.target['value']);
-      //    setInputTOTALValue(  (inputSubtotalValue + ( inputSubtotalValue*(+inputTaxeValue / 100)) - (  inputSubtotalValue*(+inputDiscountValue/ 100) )).toFixed(2))
-
-      //  }
 
       console.log( 'name ::  ',e.target['name'])
 
@@ -214,7 +209,7 @@ setCashierEmail(e.target.value);
             {/* <button id="sendEmail" type="submit">Send Email</button> */}
             <Link to='#pdf'><button type="submit" onClick={previewPDF} >View PDF</button></Link>
             <button id="download" type="submit" onClick={downloadPDF} >Download PDF</button>
-            <button id="download" type="submit" onClick={()=>downloadPDF("share")} >Send via email</button>
+            {/* <button id="download" type="submit" onClick={()=>downloadPDF("share")} >Send via email</button> */}
          </div>
          <div className="invoice">
             <div className="general-info">

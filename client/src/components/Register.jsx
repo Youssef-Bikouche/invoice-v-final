@@ -6,6 +6,7 @@ import "../styles/Register.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [companyName, setcompanyName] = useState("");
@@ -19,8 +20,6 @@ const Register = () => {
   const navigate=useNavigate('');
   const handleSubmit = async () => {
     const formData = new FormData();
-    console.log('input logo submit :',inputLogo)
-    console.log('companyname :',companyName)
        formData.append('image',inputLogo);
        formData.append('companyName', companyName);
        formData.append('email', email);
@@ -41,7 +40,6 @@ const Register = () => {
         seterror("password is too short , try again");
       } else {
         if (password === confirmpassword) {
-         
           await axios.post("http://localhost:5000/addCompany", 
               formData
             , {
@@ -65,9 +63,7 @@ const Register = () => {
 /******************** */
 
  const handleInputLogo = async(e)=>{
-       console.log(e.target.files[0]);
        setInputLogo(e.target.files[0])
-       console.log(inputLogo);
  }
    
     
@@ -81,7 +77,9 @@ const Register = () => {
         </video>
       </div>
       <div className="right-side">
-        <FontAwesomeIcon icon={faHome} className="Home" />
+        <Link to="/Home">
+          <FontAwesomeIcon icon={faHome} className="Home" />
+        </Link>
         <div action="" className="form">
           <img src={companypic} alt="company" />
           <h1>Welcome !</h1>
@@ -99,7 +97,7 @@ const Register = () => {
             <div className="inputIcon">Email</div>
             <div className="input">
               <input
-                type="text"
+                type="email"
                 placeholder="Exemple@gmail.com"
                 onChange={(e) => setemail(e.target.value)}
               />

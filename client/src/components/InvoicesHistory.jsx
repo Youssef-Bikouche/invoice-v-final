@@ -39,12 +39,9 @@ const InvoicesHistory = () => {
     return payed ? 'green' : 'red';
   };
   const clearHISTORY=async()=>{
-    console.log(companyName)
     await axios.delete('http://localhost:5000/clearHISTORY',{
       companyName: companyName,
     }).then(res=>{
-       console.log("history is cleared succesfully");
-       console.log(res.data.message);
        if(res.data.message){
         getInvoices();
        }
@@ -90,7 +87,7 @@ const InvoicesHistory = () => {
  
   return (<>
   {verified ? (
-    <div className="invoice-history-table">
+   <div className="invoice-history-table">
    <table className="invoices-table">
      <thead className="invoices-table-thead">
       <tr className='tr-input-clear'> 

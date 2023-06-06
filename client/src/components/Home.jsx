@@ -1,10 +1,9 @@
 import '../styles/Home.css';
 import {Link} from 'react-router-dom'; 
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkLogin } from "./utilities/checkLogin";
-import Aboutus from './Aboutus';
+
 
 const Home = () => {
   const [verified,setverified]=useState('');
@@ -19,7 +18,7 @@ const Home = () => {
   return ( 
     <div className="homepage">
       <section id="section1">
-        <LazyLoadImage id="backhome" src="/images/backhome.jpg" alt="" srcset="" />
+        <img id="backhome" src="/images/backhome.jpg" alt="" srcset="" />
         <div id="parts"> 
         <div className="partleft">
           <div id="centretitres">
@@ -76,9 +75,9 @@ const Home = () => {
             </div>
             </div>
        </section>
-       <h1  id='aboutus'>About us</h1>
-       <Aboutus/>
+       
     </div>
+  
     
    );
 }

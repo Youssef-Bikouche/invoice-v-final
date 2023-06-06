@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
 import '../styles/Contact.css';
 import contactIMG from "../media/contact.png";
-import axios from 'axios';
 import emailjs from 'emailjs-com';
+import { set } from 'date-fns';
 
 const Contact = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
-
+  const [message,setmessage]=useState('');
+  const [errormessage,setErrormessage]=useState('');
   const handleSubmit = async(e) => {
-    e.preventDefault();
-    // console.log(fullName,email,subject);
-    // const sub = subject;
-    // const body = "Hey ,my name is "+fullName;
-    // const mailtoLink = `mailto:youssefkun64@gmail;com?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
-    // window.location.href = mailtoLink;
       e.preventDefault();
   
       const templateParams = {
         from_email: email,
-        to_email: 'mehdi.stage.youssef@gmail.com', // Replace with your email address
+        to_email: 'mehdi.stage.youssef@gmail.com',
         subject: subject,
         fullname: fullName,
       };
@@ -28,23 +23,20 @@ const Contact = () => {
       emailjs.send('service_rnisc44', 'template_gm9xvwv', templateParams, 'KeXzt57bqu_PKcjXz')
         .then((response) => {
           console.log('Email sent successfully!', response);
+          setErrormessage(true);
+          setmessage('your message is sent succesfully')
         })
         .catch((error) => {
           console.error('Failed to send email:', error);
+          setErrormessage(true);
+          setmessage('failed to send')
         });
-    
-    // await axios.post("http://localhost:5000/send-email",{
-    //  fullName,
-    //  email,
-    //  subject,
-    // }).then(res=>{
-    //   console.log(res)
-    // })
   };
    
 
   return (
     <div className="contact-us">
+
       <div className='contact-left'>
           <img src={contactIMG} alt="" />
       </div>
@@ -61,10 +53,10 @@ const Contact = () => {
           <button type="submit" className="submit-contact">
             Submit
           </button>
+ 
+          <div style={{widh: '100%' , margin :'1%',color: 'green'}}>{errormessage ?<div>{message}</div>:<></>}</div>
         </form>
       </div>
-      
-     
     </div>
   );
 };

@@ -311,3 +311,15 @@ body {
   @include position(absolute,50%,50%);
   transform: translate(-50% ,-50%);
 }
+.divsendbuttonandmessage{
+  width: 150px;
+  padding:2px;
+  p{
+    color: green;
+  }
+}
+.failedd{
+  p{
+    color: red;
+  }
+}

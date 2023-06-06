@@ -52,8 +52,7 @@ const storage = multer.diskStorage({
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
      fileLogo = file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop();
     cb(null, fileLogo);
-  
- 
+
   }
 
 });
@@ -61,10 +60,6 @@ const upload = multer({ storage: storage });
 /******** */
 //********************* */
 app.post('/logos', (req, res) => {
-  // const logoname = req.body.logoname;
-  // console.log('logoname :' , logoname)
-  // const imagePath = 'C:/Users/amarj/Desktop/invoice-v3-final/invoice-v-final/server/logos-companies/image-1685231461102-728933704.jpg';
-  // res.sendFile(imagePath);
   const logoname = req.body.logoname;
   console.log('logoname :', logoname);
   
@@ -83,10 +78,7 @@ app.post('/logos', (req, res) => {
   });
 });
 //*********************************************************** */
-app.post('/addCompany',  upload.single('image'),async (req, res) => {
-  console.log('fileLogo:',fileLogo);
-  console.log('req.file  : ',req.file);
-  console.log('req.body  : ',req.body);
+app.post('/addCompany', upload.single('image'),async (req, res) => {
 try {
 
   const [name, email, phone] = await Promise.all([
@@ -109,7 +101,7 @@ try {
         address: req.body.address,
         phone: req.body.phone,
         password: req.body.password, 
-        fileLogo
+        fileLogo ,
       },
     });
     res.json({ message: "Created account successfully",created : true });

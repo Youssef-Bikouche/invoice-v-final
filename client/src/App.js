@@ -36,6 +36,7 @@ function App() {
             <>
               <Navbar />
               <Home />
+              <Aboutus/>
               <Footer/>
             </>
           }
