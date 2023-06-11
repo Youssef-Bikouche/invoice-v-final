@@ -74,7 +74,7 @@
       .email,
       .passwordd,
       .cpasswordd {
-        @include size(90%, 8%);
+        @include size(90%, 40px);
         @include flex(space-around);
         // @include border(1px,green,2px);
         margin-bottom: 20px;
@@ -94,6 +94,7 @@
       }
       button {
         @include size(30%, 8%);
+        padding:4px;
         color: white;
         background-color: lighten($color: $secondary, $amount: 15%);
         @include border(0px, none, 10px);

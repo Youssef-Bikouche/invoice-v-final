@@ -227,7 +227,7 @@ const downloadPDF = async (share)=>{
 
        easyinvoice.render('pdf', response.data.invoice);
        setisLoadingInvoice(false);
-       const pdfDiv = document.getElementById('pdftest');
+       const pdfDiv = document.getElementById('pdf');
        pdfDiv.scrollIntoView({behavior: 'smooth'});
                        
   })

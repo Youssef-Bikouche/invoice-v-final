@@ -679,6 +679,9 @@ app.post('/sendbyEMAIL', async (req, res) => {
         user: 'mehdi.stage.youssef@gmail.com',
         pass: 'pugewpcyxydmufei',
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     const mailOptions = {

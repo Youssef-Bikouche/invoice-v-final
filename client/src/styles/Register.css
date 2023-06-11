@@ -141,7 +141,7 @@
 .Register-container .right-side .form .passwordd,
 .Register-container .right-side .form .cpasswordd {
   width: 90%;
-  height: 8%;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -184,6 +184,7 @@
 .Register-container .right-side .form button {
   width: 30%;
   height: 8%;
+  padding: 4px;
   color: white;
   background-color: #fdb7a2;
   border: 0px solid none;
@@ -230,4 +231,4 @@
   100% {
     box-shadow: -4px 0px 15px #8989f0;
   }
-}/*# sourceMappingURL=Register.css.map */
+}

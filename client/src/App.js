@@ -159,6 +159,7 @@ function App() {
             <>
               <Navbar/>
               <Aboutus/>
+              <Footer/>
             </>
           }
         />
