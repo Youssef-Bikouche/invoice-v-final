@@ -1,8 +1,7 @@
-# � Invoice Management System
-
-![Project Screenshot](./screenshot.png) *Replace with actual screenshot*
+![S](https://github.com/user-attachments/assets/f96a9bdc-36d0-4f6f-95c0-bad89f0882b9)
 
 A full-stack invoice management system with PDF generation and email capabilities, built with React, Express, and PostgreSQL.
+
 
 ## ✨ Features
 
@@ -25,8 +24,8 @@ A full-stack invoice management system with PDF generation and email capabilitie
 ## 🛠 Tech Stack
 
 **Frontend**:
-- React
-- CSS Modules
+- React js
+- SCSS
 - EasyInvoice (PDF generation)
 
 **Backend**:
@@ -48,11 +47,17 @@ A full-stack invoice management system with PDF generation and email capabilitie
 ### Installation
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/invoice-system.git
-cd server
-npm install
-cp .env.example .env
-# Edit .env with your credentials
-npx prisma migrate dev
-npm start
+   - git clone https://github.com/Youssef-Bikouche/invoice-v-final
+     
+2. **Edit .env with your credentials**
+- npx prisma migrate dev
+- npm start
+3. **set up backend** 
+- cd server
+- npm install
+- cp .env.example .env
+
+## 🌟 Upcoming Features
+- Dashboard analytics
+- Multi-language support
+- Cloud storage integration
